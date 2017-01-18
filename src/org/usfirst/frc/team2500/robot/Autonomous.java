@@ -19,12 +19,13 @@ public class Autonomous extends IterativeRobot {
     public void autonomousPeriodic() {
     	if(begin.autoLoopCounter < 100) //Check if we've completed 100 loops (approximately 2 seconds)
 		{
-			begin.myRobot.drive(-0.5, 0.0); 	// drive forwards half speed
+			begin.driveTrain.drive(-0.5, 0.0); 	// drive forwards half speed
 			begin.autoLoopCounter++;
 			} 
     	else 
     	{
-			begin.myRobot.drive(0.0, 0.0); 	// stop robot
+			begin.driveTrain.drive(0.0, 0.0); 	// stop robot
+			
 		}
     }
 }

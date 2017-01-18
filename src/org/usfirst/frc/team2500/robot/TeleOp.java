@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2500.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick.RumbleType;
+import edu.wpi.first.wpilibj.buttons.Button;
 
 
 public class TeleOp extends IterativeRobot{
@@ -15,6 +15,7 @@ public class TeleOp extends IterativeRobot{
      * This function is called once each time the robot enters tele-operated mode
      */
 	
+	//advanced pls ignore till line 26
     public TeleOp(){
     	begin = Robot.begin;
     	previous_button_states = new boolean[6];
@@ -29,40 +30,46 @@ public class TeleOp extends IterativeRobot{
      */
     public void teleopPeriodic() 
     {
-    	if(begin.startup > 0){
-    		begin.startup = begin.startup-1;
-    		begin.stick.setRumble(RumbleType.kRightRumble, 1);
-    		begin.stick.setRumble(RumbleType.kLeftRumble, 1);
-    	}
-    	else
-    	{
-    		if(begin.toggle == true){
-        		begin.toggle = false;
-    			begin.stick.setRumble(RumbleType.kRightRumble, 0);
-    			begin.stick.setRumble(RumbleType.kLeftRumble, 0);
-    		}
-    	}
-		
+    	/*
+    	Button Get Raw Number Codes
+    	
+    	1 = A
+    	2 = B
+    	3 = X
+    	4 = Y
+    	5 = LB
+    	6 = RB
+    	*/
     	//testing if buttons were getting pressed down
-    	for(int i = 0; i < 6; i++){
-		if(begin.stick.getRawButton(i) && begin.stick.getRawButton(i) != previous_button_states[i])
-		{
-			button_toggles[i] = !button_toggles[i];
-		}
+    	for(int i = 1; i < 6; i++){
+    		if(begin.stick.getRawButton(i) && begin.stick.getRawButton(i) != previous_button_states[i])
+			{
+				button_toggles[i] = !button_toggles[i];
+			}
     	}
 
     	//switching between tank and arcade drive with press of a
 		if(button_toggles[1])
 		{
-	        begin.myRobot.arcadeDrive(begin.stick.getRawAxis(0),begin.stick.getRawAxis(1));
+	        begin.driveTrain.arcadeDrive(-1 * begin.stick.getRawAxis(1), 0.75 * begin.stick.getRawAxis(0));
 		}
 		else
 		{
-	        begin.myRobot.tankDrive(begin.stick.getRawAxis(0),begin.stick.getRawAxis(2));
+	        begin.driveTrain.tankDrive(-1 * begin.stick.getRawAxis(1),-1 * begin.stick.getRawAxis(5));
 		}
 		
-		for(int i = 0; i < 6; i++){
+			begin.sol1.set(button_toggles[2]);
+		
+		for(int i = 1; i < 7; i++){
 			previous_button_states[i] = begin.stick.getRawButton(i);
+		}
+		
+		if(button_toggles[3]){
+			begin.Climbing.set(1);
+		}
+		else
+		{
+			begin.Climbing.set(0);	
 		}
     }
     

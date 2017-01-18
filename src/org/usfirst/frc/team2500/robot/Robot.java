@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Robot extends IterativeRobot {
@@ -16,9 +15,6 @@ public class Robot extends IterativeRobot {
 	
 	public void robotInit()
 	{
-		CameraServer server = CameraServer.getInstance();
-		server.setQuality(50);
-		server.startAutomaticCapture("cam0");
 	}
 	
 	public void teleopInit()
@@ -41,8 +37,6 @@ public class Robot extends IterativeRobot {
     
     public void disabledInit() 
     {
-    	begin.stick.setRumble(RumbleType.kRightRumble, 0);
-    	begin.stick.setRumble(RumbleType.kLeftRumble, 0);
     }
     
     

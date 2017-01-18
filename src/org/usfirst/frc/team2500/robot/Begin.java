@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2500.robot;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
@@ -9,9 +10,10 @@ public class Begin {
 	int startup;
 	boolean toggle;
 	
-	RobotDrive myRobot;
+	RobotDrive driveTrain;
 	Joystick stick;
 	Solenoid sol1;
+	Spark Climbing;
 	public static int autoLoopCounter;
 	
 	/**
@@ -19,8 +21,9 @@ public class Begin {
      * used for any initialization code.
      */
     public Begin() {
-    	myRobot = new RobotDrive(8,9,7,6);
+    	driveTrain = new RobotDrive(8,9);
+    	Climbing = new Spark(7);
     	stick = new Joystick(0);
-    	sol1 = new Solenoid(1);
+    	sol1 = new Solenoid(0);
     }
 }
