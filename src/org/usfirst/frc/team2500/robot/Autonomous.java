@@ -10,17 +10,17 @@ public class Autonomous extends IterativeRobot {
 	Begin begin = Robot.begin;
 	
     public void autonomousInit() {
-    	begin.autoLoopCounter = 0;
+    	Begin.autoLoopCounter = 0;
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(begin.autoLoopCounter < 100) //Check if we've completed 100 loops (approximately 2 seconds)
+    	if(Begin.autoLoopCounter < 100) //Check if we've completed 100 loops (approximately 2 seconds)
 		{
 			begin.driveTrain.drive(-0.5, 0.0); 	// drive forwards half speed
-			begin.autoLoopCounter++;
+			Begin.autoLoopCounter++;
 			} 
     	else 
     	{

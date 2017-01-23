@@ -6,10 +6,13 @@ import edu.wpi.first.wpilibj.buttons.Button;
 
 public class TeleOp extends IterativeRobot{
 	Begin begin;
+	Vision vision;
 	
 	//setting all the button
-	boolean[] previous_button_states;
-	boolean[] button_toggles;
+	boolean[] previous_button_states1;
+	boolean[] button_toggles1;
+	boolean[] previous_button_states2;
+	boolean[] button_toggles2;
 	
     /**
      * This function is called once each time the robot enters tele-operated mode
@@ -18,10 +21,16 @@ public class TeleOp extends IterativeRobot{
 	//advanced pls ignore till line 26
     public TeleOp(){
     	begin = Robot.begin;
-    	previous_button_states = new boolean[6];
-    	button_toggles = new boolean[6];
+    	vision = Robot.vision;
+    	previous_button_states1 = new boolean[7];
+    	button_toggles1 = new boolean[7];
     	for(int i = 0; i < 6; i++){
-    		button_toggles[i] = false;
+    		button_toggles1[i] = false;
+    	}
+    	previous_button_states2 = new boolean[7];
+    	button_toggles2 = new boolean[7];
+    	for(int i = 0; i < 6; i++){
+    		button_toggles2[i] = false;
     	}
     }
 
@@ -42,34 +51,39 @@ public class TeleOp extends IterativeRobot{
     	*/
     	//testing if buttons were getting pressed down
     	for(int i = 1; i < 6; i++){
-    		if(begin.stick.getRawButton(i) && begin.stick.getRawButton(i) != previous_button_states[i])
+    		if(begin.stick1.getRawButton(i) && begin.stick1.getRawButton(i) != previous_button_states1[i])
 			{
-				button_toggles[i] = !button_toggles[i];
+				button_toggles1[i] = !button_toggles1[i];
 			}
     	}
-
-    	//switching between tank and arcade drive with press of a
-		if(button_toggles[1])
-		{
-	        begin.driveTrain.arcadeDrive(-1 * begin.stick.getRawAxis(1), 0.75 * begin.stick.getRawAxis(0));
-		}
-		else
-		{
-	        begin.driveTrain.tankDrive(-1 * begin.stick.getRawAxis(1),-1 * begin.stick.getRawAxis(5));
-		}
-		
-			begin.sol1.set(button_toggles[2]);
+    	for(int i = 1; i < 6; i++){
+    		if(begin.stick2.getRawButton(i) && begin.stick2.getRawButton(i) != previous_button_states2[i])
+			{
+				button_toggles2[i] = !button_toggles2[i];
+			}
+    	}
+    	
+    	System.out.println(begin.centerX);
+    	//Driver 1
+    		//switching between tank and arcade drive with press of a
+			if(button_toggles1[5])
+			{
+				begin.driveTrain.tankDrive(-1 * begin.stick1.getRawAxis(1),-1 * begin.stick1.getRawAxis(5));
+			}
+			else
+			{
+				begin.driveTrain.arcadeDrive(-1 * begin.stick1.getRawAxis(1), -0.75 * begin.stick1.getRawAxis(0));
+			}
+		//Driver 2
+			begin.sol1.set(button_toggles2[2]);
+			begin.sol2.set(button_toggles2[1]);
+			begin.Climbing.set(begin.stick2.getRawAxis(3)-begin.stick2.getRawAxis(4));
 		
 		for(int i = 1; i < 7; i++){
-			previous_button_states[i] = begin.stick.getRawButton(i);
+			previous_button_states1[i] = begin.stick1.getRawButton(i);
 		}
-		
-		if(button_toggles[3]){
-			begin.Climbing.set(1);
-		}
-		else
-		{
-			begin.Climbing.set(0);	
+		for(int i = 1; i < 7; i++){
+			previous_button_states2[i] = begin.stick2.getRawButton(i);
 		}
     }
     
