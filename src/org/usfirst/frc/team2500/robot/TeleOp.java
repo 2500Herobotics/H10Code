@@ -63,7 +63,6 @@ public class TeleOp extends IterativeRobot{
 			}
     	}
     	
-    	System.out.println(begin.centerX);
     	//Driver 1
     		//switching between tank and arcade drive with press of a
 			if(button_toggles1[5])
