@@ -56,35 +56,13 @@ public class Robot extends IterativeRobot {
 	public static Autonomous autonomous = new Autonomous();
 	public static TeleOp teleop = new TeleOp();
 	public static Vision vision = new Vision(); 
-    public VisionThread visionThread;
-    public UsbCamera gearCam;
-    public UsbCamera driveCam;
-    public DriverStation station;
     
-    private final Object imgLock = new Object();
 	/**
      * This function is called periodically during test mode
      */
 	
 	public void robotInit()
 	{
-	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-//	    driveCam.setResolution(380,420);
-	    
-
-	    driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
-//	    driveCam.setResolution(380,420);
-	    
-
-	    visionThread = new VisionThread(driveCam, new Vision(), pipeline -> {
-	        if (!pipeline.filterContoursOutput().isEmpty()) {
-	            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-	            synchronized (imgLock) {
-	                begin.centerX = r.x + (r.width / 2);
-	            }
-	        }
-	    });
-	    visionThread.start();
 
 	}
 	
