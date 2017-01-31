@@ -13,12 +13,13 @@ public class TeleOp extends IterativeRobot{
 	boolean[] button_toggles1;
 	boolean[] previous_button_states2;
 	boolean[] button_toggles2;
+	boolean driving_state = false;
+	double turning_value = 0;
 	
     /**
      * This function is called once each time the robot enters tele-operated mode
      */
 	
-	//advanced pls ignore till line 26
     public TeleOp(){
     	begin = Robot.begin;
     	vision = Robot.vision;
@@ -27,11 +28,7 @@ public class TeleOp extends IterativeRobot{
     	for(int i = 0; i < 6; i++){
     		button_toggles1[i] = false;
     	}
-    	previous_button_states2 = new boolean[7];
-    	button_toggles2 = new boolean[7];
-    	for(int i = 0; i < 6; i++){
-    		button_toggles2[i] = false;
-    	}
+    	turning_value = 0;
     }
 
     /**
@@ -39,6 +36,7 @@ public class TeleOp extends IterativeRobot{
      */
     public void teleopPeriodic() 
     {
+    	//System.out.println("Target center: " + begin.centerX);
     	/*
     	Button Get Raw Number Codes
     	
@@ -56,12 +54,12 @@ public class TeleOp extends IterativeRobot{
 				button_toggles1[i] = !button_toggles1[i];
 			}
     	}
-    	for(int i = 1; i < 6; i++){
-    		if(begin.stick2.getRawButton(i) && begin.stick2.getRawButton(i) != previous_button_states2[i])
-			{
-				button_toggles2[i] = !button_toggles2[i];
-			}
-    	}
+//    	for(int i = 1; i < 6; i++){
+//    		if(begin.stick2.getRawButton(i) && begin.stick2.getRawButton(i) != previous_button_states2[i])
+//			{
+//				button_toggles2[i] = !button_toggles2[i];
+//			}
+//    	}
     	
     	//Driver 1
     		//switching between tank and arcade drive with press of a
@@ -71,19 +69,22 @@ public class TeleOp extends IterativeRobot{
 			}
 			else
 			{
-				begin.driveTrain.arcadeDrive(-1 * begin.stick1.getRawAxis(1), -0.75 * begin.stick1.getRawAxis(0));
+				if (Math.abs(begin.stick1.getRawAxis(0)) > 0.2) turning_value = -1* begin.stick1.getRawAxis(0);
+				else turning_value = 0;
+				begin.driveTrain.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
 			}
 		//Driver 2
-			begin.sol1.set(button_toggles2[2]);
-			begin.sol2.set(button_toggles2[1]);
-			begin.Climbing.set(begin.stick2.getRawAxis(3)-begin.stick2.getRawAxis(4));
+			begin.sol1.set(button_toggles1[2]);
+			begin.sol2.set(button_toggles1[1]);
+//			begin.Climbing.set(begin.stick1.getRawAxis(3)-begin.stick2.getRawAxis(4));
 		
 		for(int i = 1; i < 7; i++){
 			previous_button_states1[i] = begin.stick1.getRawButton(i);
 		}
-		for(int i = 1; i < 7; i++){
-			previous_button_states2[i] = begin.stick2.getRawButton(i);
-		}
+//		for(int i = 1; i < 7; i++){
+//			previous_button_states2[i] = begin.stick2.getRawButton(i);
+//		}
+		
+		//System.out.println(begin.centerX);
     }
-    
 }

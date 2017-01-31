@@ -45,8 +45,10 @@ import edu.wpi.cscore.UsbCamera;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.vision.VisionThread;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class Robot extends IterativeRobot {
 	public static GoodLuck luck = new GoodLuck();
@@ -55,9 +57,9 @@ public class Robot extends IterativeRobot {
 	public static TeleOp teleop = new TeleOp();
 	public static Vision vision = new Vision(); 
     public VisionThread visionThread;
-    public UsbCamera camera1;
     public UsbCamera gearCam;
     public UsbCamera driveCam;
+    public DriverStation station;
     
     private final Object imgLock = new Object();
 	/**
@@ -73,7 +75,8 @@ public class Robot extends IterativeRobot {
 	    driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 //	    driveCam.setResolution(380,420);
 	    
-	    visionThread = new VisionThread(camera1, new Vision(), pipeline -> {
+
+	    visionThread = new VisionThread(driveCam, new Vision(), pipeline -> {
 	        if (!pipeline.filterContoursOutput().isEmpty()) {
 	            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
 	            synchronized (imgLock) {

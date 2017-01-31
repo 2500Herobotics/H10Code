@@ -28,11 +28,11 @@ public class Begin {
      * used for any initialization code.
      */
     public Begin() {
-    	driveTrain = new RobotDrive(0,1);
+    	driveTrain = new RobotDrive(0,1); //0,1
     	gyro = new ADXRS450_Gyro();
     	Climbing = new Spark(7);
     	stick1 = new Joystick(0);
-    	stick2 = new Joystick(1);
+//    	stick2 = new Joystick(1);
     	sol1 = new Solenoid(0);
     	sol2 = new Solenoid(1);
     }
