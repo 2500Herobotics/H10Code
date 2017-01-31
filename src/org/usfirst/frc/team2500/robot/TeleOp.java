@@ -54,15 +54,9 @@ public class TeleOp extends IterativeRobot{
 				button_toggles1[i] = !button_toggles1[i];
 			}
     	}
-//    	for(int i = 1; i < 6; i++){
-//    		if(begin.stick2.getRawButton(i) && begin.stick2.getRawButton(i) != previous_button_states2[i])
-//			{
-//				button_toggles2[i] = !button_toggles2[i];
-//			}
-//    	}
+    	begin.sol3.set(button_toggles1[3]);
+    	begin.sol4.set(button_toggles1[3]);
     	
-    	//Driver 1
-    		//switching between tank and arcade drive with press of a
 			if(button_toggles1[5])
 			{
 				begin.driveTrain.tankDrive(-1 * begin.stick1.getRawAxis(1),-1 * begin.stick1.getRawAxis(5));

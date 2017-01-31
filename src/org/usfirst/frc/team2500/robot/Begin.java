@@ -17,6 +17,8 @@ public class Begin {
 	Joystick stick2;
 	Solenoid sol1;
 	Solenoid sol2;
+	Solenoid sol3;
+	Solenoid sol4;
 	Spark Climbing;
 	ADXRS450_Gyro gyro;
 	public static int autoLoopCounter;
@@ -28,13 +30,14 @@ public class Begin {
      * used for any initialization code.
      */
     public Begin() {
-    	driveTrain = new RobotDrive(0,1); //0,1
+    	driveTrain = new RobotDrive(0,1);
     	gyro = new ADXRS450_Gyro();
     	Climbing = new Spark(7);
     	stick1 = new Joystick(0);
-//    	stick2 = new Joystick(1);
     	sol1 = new Solenoid(0);
     	sol2 = new Solenoid(1);
+    	sol3 = new Solenoid(2);
+    	sol4 = new Solenoid(3);
     }
     
     public void robotInit(){
