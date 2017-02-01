@@ -2,9 +2,9 @@ package org.usfirst.frc.team2500.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
+//import edu.wpi.cscore.UsbCamera;
+//import edu.wpi.first.wpilibj.CameraServer;
+//import edu.wpi.first.wpilibj.DriverStation;
 
 
 public class TeleOp extends IterativeRobot{
@@ -18,7 +18,7 @@ public class TeleOp extends IterativeRobot{
 	boolean[] button_toggles2;
 	boolean driving_state = false;
 	double turning_value = 0;
-	public UsbCamera camOut;
+//	public UsbCamera camOut;
 	
     /**
      * This function is called once each time the robot enters tele-operated mode
@@ -58,25 +58,27 @@ public class TeleOp extends IterativeRobot{
 			}
     	}
     	
-    	if(button_toggles1[4]){
-    	    camOut = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
-    	}
-    	else{
-    	    camOut = CameraServer.getInstance().startAutomaticCapture("cam1", 0);
-    	}
+//    	if(button_toggles1[4]){
+//    	    camOut = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+//    	}
+//    	else{
+//    	    camOut = CameraServer.getInstance().startAutomaticCapture("cam1", 0);
+//    	}
     	
 		if(button_toggles1[5])
 		{
-			begin.driveTrain.tankDrive(-1 * begin.stick1.getRawAxis(1),-1 * begin.stick1.getRawAxis(5));
+			begin.driveTrain1.tankDrive(-1 * begin.stick1.getRawAxis(1),-1 * begin.stick1.getRawAxis(5));
+			begin.driveTrain2.tankDrive(-1 * begin.stick1.getRawAxis(1),-1 * begin.stick1.getRawAxis(5));
 		}
 		else
 		{
 			if (Math.abs(begin.stick1.getRawAxis(0)) > 0.2) turning_value = -1* begin.stick1.getRawAxis(0);
 			else turning_value = 0;
-			begin.driveTrain.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
+			begin.driveTrain1.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
+			begin.driveTrain2.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
 		}
 		begin.sol1.set(button_toggles1[2]);
-		begin.sol2.set(button_toggles1[1]);
+//		begin.sol2.set(button_toggles1[1]);
 		begin.sol3.set(button_toggles1[3]);
 		begin.sol4.set(button_toggles1[3]);
 		for(int i = 1; i < 7; i++){
