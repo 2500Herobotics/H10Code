@@ -1,12 +1,10 @@
 package org.usfirst.frc.team2500.robot;
 
-//import org.opencv.core.Rect;
-//import org.opencv.imgproc.Imgproc;
-
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-//import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -58,12 +56,12 @@ public class Robot extends IterativeRobot {
 	{
 		 begin.startup = 20;
 		 begin.toggle = true;
-//	     System.out.println(begin.centerX);
 	}
 	
 	public void teleopPeriodic() 
 	{
 		teleop.teleopPeriodic();
+	    System.out.println(begin.centerX);
 	}
 	
     public void testPeriodic() 
