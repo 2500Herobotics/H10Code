@@ -27,27 +27,28 @@ public class Robot extends IterativeRobot {
 	
 	public void robotInit()
 	{
-	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
-
-	    driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
-	    
-
-	    visionThread = new VisionThread(driveCam, new Vision(), pipeline -> {
-	        if (!pipeline.filterContoursOutput().isEmpty()) {
-	            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-	            synchronized (imgLock) {
-	                begin.centerX = r.x + (r.width / 2);
-	            }
-	        }
-	    });
-	    visionThread.start();
+//	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
+//
+//	    driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+//	    
+//
+//	    visionThread = new VisionThread(driveCam, new Vision(), pipeline -> {
+//	        if (!pipeline.filterContoursOutput().isEmpty()) {
+//	            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+//	            synchronized (imgLock) {
+//	                begin.centerX = r.x + (r.width / 2);
+//	            }
+//	        }
+//	    });
+//	    visionThread.start();
 
 	}
 	
 	public void autonomousInit(){
 		System.out.println(luck.Message());
+		autonomous.autonomousInit();
+		
 	}
-	
 	public void autonomousPeriodic(){
 		autonomous.autonomousPeriodic();
 	}
