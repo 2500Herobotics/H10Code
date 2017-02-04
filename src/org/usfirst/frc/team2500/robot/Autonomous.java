@@ -5,28 +5,29 @@ import edu.wpi.first.wpilibj.Talon;
 
 
 public class Autonomous extends IterativeRobot {
+	double speed = 0;
+	double target = 80;
+	double k = -0.1;
     /**
      * This function is run once each time the robot enters autonomous mode
      */
-	Begin begin = Robot.begin;
+	Begin begin;
 	
     public void autonomousInit() {
-    	Begin.autoLoopCounter = 0;
-	    
-	    
+    	begin = Robot.begin; 
+    	begin.eCodeLeft.reset();
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(Begin.autoLoopCounter < 50){
-    		begin.driveTrain1.tankDrive(1, 1);
-    		begin.driveTrain2.tankDrive(1, 1);
-    	}
-    	else {
-    		begin.driveTrain1.tankDrive(0, 0);
-    		begin.driveTrain2.tankDrive(0, 0);
-    	}
+    	 double error = target- begin.eCodeLeft.getDistance();
+    	 System.out.println("Encoder: " + begin.eCodeLeft.getDistance());
+    	 speed =  error * k;
+    	 if (error > 0.25){ //7 is a placeholder
+    		 begin.driveTrain1.drive(speed, 0);
+    	 } 
+    	 else begin.driveTrain1.drive(0,0);
     }
 }

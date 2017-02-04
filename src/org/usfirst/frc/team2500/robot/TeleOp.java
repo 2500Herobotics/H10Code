@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2500.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-//import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.Button;
 //import edu.wpi.cscore.UsbCamera;
 //import edu.wpi.first.wpilibj.CameraServer;
 //import edu.wpi.first.wpilibj.DriverStation;
@@ -57,6 +57,13 @@ public class TeleOp extends IterativeRobot{
     		button_toggles1[i] = !button_toggles1[i];
 			}
     	}
+    	
+//    	if(button_toggles1[4]){
+//    	    camOut = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+//    	}
+//    	else{
+//    	    camOut = CameraServer.getInstance().startAutomaticCapture("cam1", 0);
+//    	}
     	
 		if(button_toggles1[5])
 		{

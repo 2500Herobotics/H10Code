@@ -44,7 +44,8 @@ public class Begin {
 //    	sol2 = new Solenoid();
     	sol3 = new Solenoid(0);
     	sol4 = new Solenoid(1);
-    	eCodeLeft = new Encoder(0, 1);
+    	eCodeLeft = new Encoder(0, 1, false);
+    	eCodeLeft.setDistancePerPulse(0.16);
     	eCodeRight = new Encoder(2, 3);
     }
     
