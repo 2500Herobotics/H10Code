@@ -55,6 +55,7 @@ public class TeleOp extends IterativeRobot{
     		if(begin.stick1.getRawButton(i) && begin.stick1.getRawButton(i) != previous_button_states1[i])
 			{
     		button_toggles1[i] = !button_toggles1[i];
+    		System.out.println("Button "+i+": "+button_toggles1[i]);
 			}
     	}
     	
@@ -84,5 +85,7 @@ public class TeleOp extends IterativeRobot{
 		for(int i = 1; i < 7; i++){
 			previous_button_states1[i] = begin.stick1.getRawButton(i);
 		}
+		
+		begin.light1.set(button_toggles1[3]);
     }
 }

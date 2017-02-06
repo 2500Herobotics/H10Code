@@ -6,11 +6,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.DigitalOutput;
 
 public class Begin {
 	
 	int startup;
 	boolean toggle;
+	
+	DigitalOutput light1;
 
 	RobotDrive driveTrain1;
 	RobotDrive driveTrain2;
@@ -47,6 +50,7 @@ public class Begin {
     	eCodeLeft = new Encoder(0, 1, false);
     	eCodeLeft.setDistancePerPulse(0.16);
     	eCodeRight = new Encoder(2, 3);
+    	light1 = new DigitalOutput(9);
     }
     
     public void robotInit(){

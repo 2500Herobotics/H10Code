@@ -45,7 +45,6 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void autonomousInit(){
-		System.out.println(luck.Message());
 		autonomous.autonomousInit();
 		
 	}
@@ -55,6 +54,10 @@ public class Robot extends IterativeRobot {
 	
 	public void teleopInit()
 	{
+		System.out.println();
+		System.out.println();
+		 System.out.println();
+		 System.out.println(luck.Message());
 		 begin.startup = 20;
 		 begin.toggle = true;
 	}
@@ -62,7 +65,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() 
 	{
 		teleop.teleopPeriodic();
-	    System.out.println(begin.centerX);
+//	    System.out.println(begin.centerX);
 	}
 	
     public void testPeriodic() 
@@ -72,6 +75,9 @@ public class Robot extends IterativeRobot {
     
     public void disabledInit() 
     {
+		System.out.println();
+		System.out.println();
+		System.out.println();
 		System.out.println("Good game guys tell me if you want any changes when you get back to the pit.");
     }
 }
