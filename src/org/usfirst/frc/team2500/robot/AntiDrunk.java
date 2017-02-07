@@ -18,6 +18,11 @@ public class AntiDrunk {
 	public float eCodeToSpeed(Encoder eCode, int target,long dt,float p){
 		eCodeCur = eCodeNex;
 		
+//		try {
+//		    Thread.sleep(dt);
+//		} catch(InterruptedException ex) {
+//		    Thread.currentThread().interrupt();
+//		}
 		
 		eCodeNex = eCode.getRaw();
 		System.out.println(eCodeNex);
