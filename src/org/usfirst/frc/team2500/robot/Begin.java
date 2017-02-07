@@ -50,7 +50,8 @@ public class Begin {
     	eCodeLeft = new Encoder(0, 1, false);
     	eCodeLeft.setDistancePerPulse(0.16);
     	eCodeRight = new Encoder(2, 3);
-    	light1 = new DigitalOutput(9);
+    	eCodeRight.setDistancePerPulse(0.16);
+    	light1 = new DigitalOutput(4);
     }
     
     public void robotInit(){

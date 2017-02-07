@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 public class TeleOp extends IterativeRobot{
 	Begin begin;
 	Vision vision;
+	AntiDrunk drive;
 	
 	//setting all the button
 	boolean[] previous_button_states1;
@@ -65,6 +66,8 @@ public class TeleOp extends IterativeRobot{
 //    	else{
 //    	    camOut = CameraServer.getInstance().startAutomaticCapture("cam1", 0);
 //    	}
+    	
+    	drive.eCodeToSpeed(begin.eCodeLeft, (int) begin.stick1.getRawAxis(1), 5, 1);
     	
 		if(button_toggles1[5])
 		{
