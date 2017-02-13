@@ -104,9 +104,7 @@ public class TeleOp extends IterativeRobot{
 				begin.light2.set(false);
 			}
 
-			begin.drive1.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
-			begin.drive2.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
-			begin.drive3.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
+			begin.drive.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
 		}
 		
 		//Solenoids

@@ -28,9 +28,7 @@ public class Begin {
 	Talon talon_left3;
 	Talon talon_right3;
 
-	eCodeDrive drive1;
-	eCodeDrive drive2;
-	eCodeDrive drive3;
+	eCodeDrive drive;
 	
 	Joystick stick1;
 	Joystick stick2;
@@ -75,11 +73,7 @@ public class Begin {
     	talon_left3 = new Talon(1);
     	talon_right3 = new Talon(3);
     	
-    	drive = new eCodeDrive(talon_left1, talon_left2, talon_left3, talon_right1, talon_right2, talon_right3)
-    	
-    	drive1 = new eCodeDrive(talon_left1, talon_right1, eCodeLeft, eCodeRight);
-    	drive2 = new eCodeDrive(talon_left2, talon_right2, eCodeLeft, eCodeRight);
-    	drive3 = new eCodeDrive(talon_left3, talon_right3, eCodeLeft, eCodeRight);
+    	drive = new eCodeDrive(talon_left1, talon_left2, talon_left3, talon_right1, talon_right2, talon_right3, eCodeLeft, eCodeRight);
     	
     	light1 = new DigitalOutput(4);
     	light2 = new DigitalOutput(5);

@@ -21,15 +21,24 @@ public class eCodeDrive {
 	
 	double previous_error = 0;
 	long previous_time = 0;
-	
-	Talon left;
-	Talon right;
+
+	Talon left1;
+	Talon left2;
+	Talon left3;
+	Talon right1;
+	Talon right2;
+	Talon right3;
 	Encoder left_enc;
 	Encoder right_enc;
 	
-	public eCodeDrive(Talon left, Talon right, Encoder left_enc, Encoder right_enc){
-		this.left = left;
-		this.right = right;
+	public eCodeDrive(Talon left1, Talon left2, Talon left3, Talon right1, Talon right2, Talon right3, Encoder left_enc, Encoder right_enc){
+		this.left1 = left1;
+		this.left2 = left2;
+		this.left3 = left3;
+		this.right1 = right1;
+		this.right2 = right2;
+		this.right3 = right3;
+		
 		this.left_enc = left_enc;
 		this.right_enc = right_enc;
 	}
@@ -51,8 +60,12 @@ public class eCodeDrive {
 		error = target - eCodeVal;
 		derivative = (error - previous_error) / (time - previous_time);
 		speed = ((error * p) + (derivative * d)) / target;
-		left.set(speed);
-		right.set(speed);
+		left1.set(speed);
+		left2.set(speed);
+		left3.set(speed);
+		right1.set(speed);
+		right2.set(speed);
+		right3.set(speed);
 //		tankDrive(error, error);
 		previous_error = error;
 		previous_time = time;
@@ -83,8 +96,12 @@ public class eCodeDrive {
 	      }
 		System.out.println("Left Speed: " + left_current_speed);
 		System.out.println("Right Speed: " + right_current_speed);
-		left.set(leftTargetSpeed);
-		right.set(rightTargetSpeed);
+		left1.set(leftTargetSpeed);
+		left2.set(leftTargetSpeed);
+		left3.set(leftTargetSpeed);
+		right1.set(rightTargetSpeed);
+		right2.set(rightTargetSpeed);
+		right3.set(rightTargetSpeed);
 	    
 	    
 	}
@@ -92,8 +109,12 @@ public class eCodeDrive {
 	public void tankDrive(double leftValue, double rightValue){
 		left_current_speed = calculateMotorSpeed(left_enc, leftValue, left_current_speed);
 		right_current_speed = calculateMotorSpeed(right_enc, rightValue, right_current_speed);
-		
-		left.set(left_current_speed);
-		right.set(right_current_speed);
+
+		left1.set(left_current_speed);
+		left2.set(left_current_speed);
+		left3.set(left_current_speed);
+		right1.set(right_current_speed);
+		right2.set(right_current_speed);
+		right3.set(right_current_speed);
 	}
 }

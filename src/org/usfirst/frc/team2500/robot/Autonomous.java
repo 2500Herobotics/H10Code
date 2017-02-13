@@ -26,9 +26,7 @@ public class Autonomous extends IterativeRobot {
     public void autonomousPeriodic() {
     	
 //    	if()
-    	begin.drive1.driveDistance(target, 1, 0.5);
-    	begin.drive2.driveDistance(target, 1, 0.5);
-    	begin.drive3.driveDistance(target, 1, 0.5);
+    	begin.drive.driveDistance(target, 1, 0.5);
     	
     	System.out.println("Left Distance: " + begin.eCodeLeft.getDistance());
 //    	System.out.println("Right Distance: " + begin.eCodeLeft.getDistance());
