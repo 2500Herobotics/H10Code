@@ -12,6 +12,16 @@ public class eCodeDrive {
 	
 	double k = 0.5;
 	
+	//avoiding excessive allocations on each loop
+	double eCodeVal;
+	double error;
+	double derivative;
+	long time;
+	double speed;
+	
+	double previous_error = 0;
+	long previous_time = 0;
+	
 	Talon left;
 	Talon right;
 	Encoder left_enc;
@@ -31,7 +41,24 @@ public class eCodeDrive {
 	private void reset(){
 		left_current_speed = 0;
 		right_current_speed = 0;
+		previous_error = 0;
+		previous_time = 0;
 	}
+	
+	public boolean driveDistance(double target, double p, double d){
+		time = System.currentTimeMillis();
+		eCodeVal = (left_enc.getDistance() + right_enc.getDistance())/2;
+		error = target - eCodeVal;
+		derivative = (error - previous_error) / (time - previous_time);
+		speed = ((error * p) + (derivative * d)) / target;
+		left.set(speed);
+		right.set(speed);
+//		tankDrive(error, error);
+		previous_error = error;
+		previous_time = time;
+		return error < 0.1 * target;
+	}
+	
 	
 	public void arcadeDrive(double moveValue, double rotateValue){
 	    double leftTargetSpeed = 0.0;
@@ -54,6 +81,8 @@ public class eCodeDrive {
 	          rightTargetSpeed = -Math.max(-moveValue, -rotateValue);
 	        }
 	      }
+		System.out.println("Left Speed: " + left_current_speed);
+		System.out.println("Right Speed: " + right_current_speed);
 		left.set(leftTargetSpeed);
 		right.set(rightTargetSpeed);
 	    

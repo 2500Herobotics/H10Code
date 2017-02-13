@@ -14,10 +14,10 @@ public class Robot extends IterativeRobot {
 	public static Begin begin = new Begin();
 	public static Autonomous autonomous = new Autonomous();
 	public static TeleOp teleop = new TeleOp();
-	public static Vision vision = new Vision(); 
-    public VisionThread visionThread;
-    public UsbCamera gearCam;
-    public UsbCamera driveCam;
+//	public static Vision vision = new Vision(); 
+//    public VisionThread visionThread;
+//    public UsbCamera gearCam;
+//    public UsbCamera driveCam;
     
     private final Object imgLock = new Object();
 	/**
@@ -26,20 +26,20 @@ public class Robot extends IterativeRobot {
 	
 	public void robotInit()
 	{
-	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
-
-	    driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
-	    
-
-	    visionThread = new VisionThread(driveCam, new Vision(), pipeline -> {
-	        if (!pipeline.filterContoursOutput().isEmpty()) {
-	            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-	            synchronized (imgLock) {
-	                begin.centerX = r.x + (r.width / 2);
-	            }
-	        }
-	    });
-	    visionThread.start();
+//	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
+//
+//	    driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+//	    
+//
+//	    visionThread = new VisionThread(driveCam, new Vision(), pipeline -> {
+//	        if (!pipeline.filterContoursOutput().isEmpty()) {
+//	            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+//	            synchronized (imgLock) {
+//	                begin.centerX = r.x + (r.width / 2);
+//	            }
+//	        }
+//	    });
+//	    visionThread.start();
 
 	}
 	

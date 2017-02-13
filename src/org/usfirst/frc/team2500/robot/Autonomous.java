@@ -16,6 +16,7 @@ public class Autonomous extends IterativeRobot {
     public void autonomousInit() {
 		begin = Robot.begin;
     	begin.eCodeLeft.reset();
+//    	drive = new eCodeDrive();
 	    
     }
 
@@ -23,17 +24,13 @@ public class Autonomous extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	double error = target - begin.eCodeLeft.getDistance();
-    	System.out.println("Encoder: " + begin.eCodeLeft.getDistance());
-    	speed = error * k;
-    	if(error > 0.25){
-    		begin.driveTrain1.drive(speed, 0);
-    		begin.driveTrain2.drive(speed, 0);
-    	}
-    	else{
-    		begin.driveTrain1.drive(speed, 0);
-    		begin.driveTrain2.drive(speed, 0);
-    	}
     	
+//    	if()
+    	begin.drive1.driveDistance(target, 1, 0.5);
+    	begin.drive2.driveDistance(target, 1, 0.5);
+    	begin.drive3.driveDistance(target, 1, 0.5);
+    	
+    	System.out.println("Left Distance: " + begin.eCodeLeft.getDistance());
+//    	System.out.println("Right Distance: " + begin.eCodeLeft.getDistance());
     }
 }

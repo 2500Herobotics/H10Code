@@ -21,12 +21,17 @@ public class Begin {
 	DigitalOutput light5;
 	DigitalOutput light6;
 
-	Talon talon_left;
-	Talon talon_right;
+	Talon talon_left1;
+	Talon talon_right1;
+	Talon talon_left2;
+	Talon talon_right2;
+	Talon talon_left3;
+	Talon talon_right3;
+
+	eCodeDrive drive1;
+	eCodeDrive drive2;
+	eCodeDrive drive3;
 	
-	RobotDrive driveTrain1;
-	RobotDrive driveTrain2;
-	eCodeDrive drive;
 	Joystick stick1;
 	Joystick stick2;
 	Solenoid sol1;
@@ -49,7 +54,7 @@ public class Begin {
      */
     public Begin() {
 
-    	driveTrain1 = new RobotDrive(0,1,4,3);
+//    	driveTrain1 = new RobotDrive(0,1,4,3);
     	
 //    	gyro = new ADXRS450_Gyro();
 //    	Climbing = new Spark(7);
@@ -58,14 +63,23 @@ public class Begin {
     	sol3 = new Solenoid(1);//0
     	sol4 = new Solenoid(2);//1
     	
-    	eCodeLeft = new Encoder(0, 1, false);
+    	eCodeLeft = new Encoder(0, 1, true);
     	eCodeLeft.setDistancePerPulse(0.16);
-    	eCodeRight = new Encoder(2, 3, true);
+    	eCodeRight = new Encoder(2, 3, false);
     	eCodeRight.setDistancePerPulse(0.16);
+
+    	talon_left1 = new Talon(2);
+    	talon_right1 = new Talon(5);
+    	talon_left2 = new Talon(0);
+    	talon_right2 = new Talon(4);
+    	talon_left3 = new Talon(1);
+    	talon_right3 = new Talon(3);
     	
-    	talon_left = new Talon(2);
-    	talon_right = new Talon(5);
-    	drive = new eCodeDrive(talon_left, talon_right, eCodeLeft, eCodeRight);
+    	drive = new eCodeDrive(talon_left1, talon_left2, talon_left3, talon_right1, talon_right2, talon_right3)
+    	
+    	drive1 = new eCodeDrive(talon_left1, talon_right1, eCodeLeft, eCodeRight);
+    	drive2 = new eCodeDrive(talon_left2, talon_right2, eCodeLeft, eCodeRight);
+    	drive3 = new eCodeDrive(talon_left3, talon_right3, eCodeLeft, eCodeRight);
     	
     	light1 = new DigitalOutput(4);
     	light2 = new DigitalOutput(5);

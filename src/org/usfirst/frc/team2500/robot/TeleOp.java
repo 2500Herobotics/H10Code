@@ -32,8 +32,7 @@ public class TeleOp extends IterativeRobot{
     	
     	robot = new Robot();
     	begin = Robot.begin;
-    	vision = Robot.vision;
-    	drive = begin.drive;
+//    	vision = Robot.vision;
     	
     	previous_button_states1 = new boolean[7];
     	button_toggles1 = new boolean[7];
@@ -104,8 +103,10 @@ public class TeleOp extends IterativeRobot{
 				begin.light1.set(false);
 				begin.light2.set(false);
 			}
-			
-			drive.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
+
+			begin.drive1.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
+			begin.drive2.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
+			begin.drive3.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
 		}
 		
 		//Solenoids
@@ -114,12 +115,12 @@ public class TeleOp extends IterativeRobot{
 		begin.sol3.set(button_toggles1[3]);//4
 		
 		//Camera Toggle
-		if(button_toggles1[1]){
-			curCam = robot.driveCam;
-		}
-		else {
-			curCam = robot.gearCam;
-		}
+//		if(button_toggles1[1]){
+//			curCam = robot.driveCam;
+//		}
+//		else {
+//			curCam = robot.gearCam;
+//		}
 		
 		for(int i = 1; i < 7; i++){
 			previous_button_states1[i] = begin.stick1.getRawButton(i);
