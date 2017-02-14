@@ -88,29 +88,31 @@ public class TeleOp extends IterativeRobot{
 			else {
 				turning_value = 0;
 			}
+			
+			begin.drive.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
+		
+			//lights on or off
 			if(begin.stick1.getRawAxis(1) > 0.1) {
-				//One light on for driveing forword
+				//One light on for driving forward
 				begin.light1.set(true);
 				begin.light2.set(false);
 			}
 			else if(begin.stick1.getRawAxis(1) < -0.1) {
-				//Other light on of driving backwords
+				//Other light on off driving backwards
 				begin.light1.set(false);
 				begin.light2.set(true);
 			}
 			else {
-				//Both of if not driving
+				//Both off if not driving
 				begin.light1.set(false);
 				begin.light2.set(false);
 			}
-
-			begin.drive.arcadeDrive(begin.stick1.getRawAxis(1), turning_value);
+			
 		}
 		
 		//Solenoids
-		begin.sol4.set(button_toggles1[2]);//1
-		begin.sol1.set(button_toggles1[3]);//3
-		begin.sol3.set(button_toggles1[3]);//4
+		begin.sol1.set(button_toggles1[1]);//3
+		begin.sol2.set(button_toggles1[3]);//4
 		
 		//Camera Toggle
 //		if(button_toggles1[1]){

@@ -57,9 +57,8 @@ public class Begin {
 //    	gyro = new ADXRS450_Gyro();
 //    	Climbing = new Spark(7);
     	stick1 = new Joystick(0);
-    	sol1 = new Solenoid(0);//2
-    	sol3 = new Solenoid(1);//0
-    	sol4 = new Solenoid(2);//1
+    	sol1 = new Solenoid(0);
+    	sol2 = new Solenoid(1);
     	
     	eCodeLeft = new Encoder(0, 1, true);
     	eCodeLeft.setDistancePerPulse(0.16);

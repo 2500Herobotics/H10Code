@@ -56,13 +56,13 @@ public class eCodeDrive {
 	
 	public boolean driveDistance(double target, double p, double d){
 		time = System.currentTimeMillis();
-		eCodeVal = (left_enc.getDistance() + right_enc.getDistance())/2;
+		eCodeVal = (left_enc.getDistance() + (right_enc.getDistance()) * -1) / 2;
 		error = target - eCodeVal;
 		derivative = (error - previous_error) / (time - previous_time);
 		speed = ((error * p) + (derivative * d)) / target;
-		left1.set(speed);
-		left2.set(speed);
-		left3.set(speed);
+		left1.set(speed * -1);
+		left2.set(speed * -1);
+		left3.set(speed * -1);
 		right1.set(speed);
 		right2.set(speed);
 		right3.set(speed);
@@ -70,6 +70,29 @@ public class eCodeDrive {
 		previous_error = error;
 		previous_time = time;
 		return error < 0.1 * target;
+	}
+	
+
+	public boolean driveDistance(double rtarget, double ltarget, double p, double d){
+		time = System.currentTimeMillis();
+		
+		double lError = ltarget - left_enc.getDistance();
+		double lDerivative = (lError - previous_error) / (time - previous_time);
+		double lSpeed = ((lError * p) + (lDerivative * d)) / ltarget * -1;
+		
+		double rError = rtarget - right_enc.getDistance();
+		double rDerivative = (rError - previous_error) / (time - previous_time);
+		double rSpeed = ((rError * p) + (rDerivative * d)) / rtarget * -1;
+		
+		left1.set(lSpeed);
+		left2.set(lSpeed);
+		left3.set(lSpeed);
+		right1.set(rSpeed);
+		right2.set(rSpeed);
+		right3.set(rSpeed);
+		previous_error = error;
+		previous_time = time;
+		return lError < 0.1 * ltarget && rError < 0.1 * rtarget;
 	}
 	
 	
