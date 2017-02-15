@@ -5,11 +5,17 @@ import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class Robot extends IterativeRobot {
+	Command autonomousCommand;
+	SendableChooser autoChooser;
 	public static GoodLuck luck = new GoodLuck();
 	public static Begin begin = new Begin();
 	public static Autonomous autonomous = new Autonomous();
@@ -23,7 +29,7 @@ public class Robot extends IterativeRobot {
 	/**
      * This function is called periodically during test mode
      */
-	
+    
 	public void robotInit()
 	{
 //	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
@@ -40,15 +46,23 @@ public class Robot extends IterativeRobot {
 //	        }
 //	    });
 //	    visionThread.start();
-
+		autoChooser = new SendableChooser();
+		
+		autoChooser.addDefault("Autoleft", new Autoleft());
+		autoChooser.addDefault("Automid", new Automid());
+		autoChooser.addDefault("Autoright", new Autoright());
+		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 	}
 	
 	public void autonomousInit(){
 		autonomous.autonomousInit();
+		autonomousCommand = (Command) autoChooser.getSelected();
+		autonomousCommand.start();
 		
 	}
 	public void autonomousPeriodic(){
 		autonomous.autonomousPeriodic();
+		Scheduler.getInstance().run();
 	}
 	
 	public void teleopInit()
