@@ -6,6 +6,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,9 +34,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit()
 	{	
 		autoChooser = new SendableChooser();
-		autoChooser.addDefault("autoLeft", new Autonomous());
-		autoChooser.addObject("autoCenter", new Autonomous());
-		autoChooser.addObject("autoRight", new Autonomous());
+		autoChooser.addDefault("Auto Left", new AutoLeft());
+		autoChooser.addObject("Auto Center", new AutoMid());
+		autoChooser.addObject("Auto Right", new AutoRight());
 		SmartDashboard.putData("Auto mode chooser", autoChooser);
 		
 //	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
@@ -56,12 +57,13 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void autonomousInit(){
-		autonomous.autonomousInit();
+//		autonomous.autonomousInit();
 		autonomousCommand = (Command) autoChooser.getSelected();
 		autonomousCommand.start();
 	}
 	public void autonomousPeriodic(){
-		autonomous.autonomousPeriodic();
+//		autonomous.autonomousPeriodic();
+		Scheduler.getInstance().run();
 	}
 	
 	public void teleopInit()
