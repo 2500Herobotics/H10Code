@@ -5,7 +5,10 @@ import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 import edu.wpi.first.wpilibj.DriverStation;
 
@@ -24,8 +27,17 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
 	
+    Command autonomousCommand;
+    SendableChooser autoChooser;
+    
 	public void robotInit()
-	{
+	{	
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("autoLeft", new Autonomous());
+		autoChooser.addObject("autoCenter", new Autonomous());
+		autoChooser.addObject("autoRight", new Autonomous());
+		SmartDashboard.putData("Auto mode chooser", autoChooser);
+		
 //	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
 //
 //	    driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
@@ -45,7 +57,8 @@ public class Robot extends IterativeRobot {
 	
 	public void autonomousInit(){
 		autonomous.autonomousInit();
-		
+		autonomousCommand = (Command) autoChooser.getSelected();
+		autonomousCommand.start();
 	}
 	public void autonomousPeriodic(){
 		autonomous.autonomousPeriodic();
