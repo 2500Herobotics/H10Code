@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class AutoRight extends Command {
+public class Autoright extends Command {
     double speed = 0;
 	double target1 = 90;
 	double target2L = 180;

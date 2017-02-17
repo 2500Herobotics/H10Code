@@ -50,9 +50,9 @@ public class Robot extends IterativeRobot {
 //	    visionThread.start();
 		
 		autoChooser = new SendableChooser<Command>();
-		autoChooser.addDefault("Auto Left", new AutoLeft());
-		autoChooser.addObject("Auto Center", new AutoMid());
-		autoChooser.addObject("Auto Right", new AutoRight());
+		autoChooser.addDefault("Auto Left", new Autoleft());
+		autoChooser.addObject("Auto Center", new Automid());
+		autoChooser.addObject("Auto Right", new Autoright());
 		SmartDashboard.putData("Auto mode chooser", autoChooser);
 
 	}

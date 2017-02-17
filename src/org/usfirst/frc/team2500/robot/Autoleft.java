@@ -4,8 +4,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 
-
-public class AutoLeft extends Command {
+public class Autoleft extends Command {
 	double speed = 0;
 	double target1 = 90;
 	double target2L = 180;

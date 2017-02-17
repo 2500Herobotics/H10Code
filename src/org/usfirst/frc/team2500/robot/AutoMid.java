@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class AutoMid extends Command {
+public class Automid extends Command {
 	double speed = 0;
 	double target1 = 180;
 
