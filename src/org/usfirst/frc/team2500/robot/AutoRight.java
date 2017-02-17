@@ -2,9 +2,10 @@ package org.usfirst.frc.team2500.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.command.Command;
 
 
-public class AutoRight extends IterativeRobot {
+public class AutoRight extends Command {
     double speed = 0;
 	double target1 = 90;
 	double target2L = 180;
@@ -22,9 +23,10 @@ public class AutoRight extends IterativeRobot {
      */
 	Begin begin;
 	
-    public void autonomousInit() {
+    public void initialize() {
 		begin = Robot.begin;
     	begin.eCodeLeft.reset();
+    	begin.eCodeRight.reset();
 //    	drive = new eCodeDrive();
     	reach1 = false;
     	reach2 = false;
@@ -34,7 +36,7 @@ public class AutoRight extends IterativeRobot {
     /**
      * This function is called periodically during autonomous
      */
-    public void autonomousPeriodic() {
+    public void execute() {
     	
     	if(!reach1){
     		if(begin.drive.driveDistance(target1, 1, 0.5)){
@@ -58,4 +60,9 @@ public class AutoRight extends IterativeRobot {
     	System.out.println("Left Distance: " + begin.eCodeLeft.getDistance());
     	System.out.println("Right Distance: " + begin.eCodeRight.getDistance());
     }
+    
+	@Override
+	protected boolean isFinished() {
+		return reach3;
+	}
 }

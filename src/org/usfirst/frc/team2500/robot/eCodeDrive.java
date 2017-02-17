@@ -4,13 +4,14 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 
 public class eCodeDrive {
-
-	int max_speed = 1400;
+	
 	int target_speed = 0;
 	double left_current_speed = 0;
 	double right_current_speed = 0;
 	
 	double k = 0.5;
+	
+	int max_speed = 60;
 	
 	//avoiding excessive allocations on each loop
 	double eCodeVal;
@@ -52,6 +53,10 @@ public class eCodeDrive {
 		right_current_speed = 0;
 		previous_error = 0;
 		previous_time = 0;
+	}
+	
+	public void setMax(int max){
+		max_speed = max;
 	}
 	
 	public boolean driveDistance(double target, double p, double d){
@@ -125,8 +130,6 @@ public class eCodeDrive {
 		right1.set(rightTargetSpeed);
 		right2.set(rightTargetSpeed);
 		right3.set(rightTargetSpeed);
-	    
-	    
 	}
 	
 	public void tankDrive(double leftValue, double rightValue){

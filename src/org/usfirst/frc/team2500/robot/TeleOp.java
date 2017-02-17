@@ -12,7 +12,7 @@ public class TeleOp extends IterativeRobot{
 	Robot robot;
 	Begin begin;
 	Vision vision;
-//	eCodeDrive drive;
+	eCodeDrive drive;
 
 	//setting all the button
 	boolean[] previous_button_states1;
@@ -30,9 +30,8 @@ public class TeleOp extends IterativeRobot{
 	
     public TeleOp(){
     	
-    	robot = new Robot();
     	begin = Robot.begin;
-//    	drive = begin.drive;
+    	drive = begin.drive;
 //    	vision = Robot.vision;
     	
     	previous_button_states1 = new boolean[7];
@@ -80,7 +79,7 @@ public class TeleOp extends IterativeRobot{
     	
     	//Switching Drive modes Tank/Arcade
 		if(button_toggles1[5]) {
-//			drive.tankDrive(-1 * begin.stick1.getRawAxis(1),-1 * begin.stick1.getRawAxis(5));
+			drive.tankDrive(-1 * begin.stick1.getRawAxis(1),-1 * begin.stick1.getRawAxis(5));
 		}
 		else {
 			if (Math.abs(begin.stick1.getRawAxis(0)) > 0.2) {
@@ -90,41 +89,47 @@ public class TeleOp extends IterativeRobot{
 				turning_value = 0;
 			}
 			
-//			drive.arcadeDrive(begin.stick1.getRawAxis(1), turning_value, 0.1);
-			
-//			begin.talon_left1.set(1);
-//			begin.talon_left2.set(1);
-//			begin.talon_left3.set(1);
-			
-//			begin.talon_right1.set(1);
-//			begin.talon_right2.set(1);
-//			begin.talon_right3.set(1);
+			drive.arcadeDrive(-1 * turning_value, -1 * begin.stick1.getRawAxis(1));
 			
 //			System.out.println("Left: " + begin.eCodeLeft.getRate());
 			System.out.println("Right: " + begin.eCodeRight.getRate());
 			
-//			//lights on or off
-//			if(begin.stick1.getRawAxis(1) > 0.1) {
-//				//One light on for driving forward
-//				begin.light1.set(true);
-//				begin.light2.set(false);
-//			}
-//			else if(begin.stick1.getRawAxis(1) < -0.1) {
-//				//Other light on off driving backwards
-//				begin.light1.set(false);
-//				begin.light2.set(true);
-//			}
-//			else {
-//				//Both off if not driving
-//				begin.light1.set(false);
-//				begin.light2.set(false);
-//			}
-//			
+			//lights on or off
+			if(begin.stick1.getRawAxis(1) > 0.1) {
+				//One light on for driving forward
+				begin.light1.set(true);
+				begin.light2.set(false);
+			}
+			else if(begin.stick1.getRawAxis(1) < -0.1) {
+				//Other light on off driving backwards
+				begin.light1.set(false);
+				begin.light2.set(true);
+			}
+			else {
+				//Both off if not driving
+				begin.light1.set(false);
+				begin.light2.set(false);
+			}
+			
 		}
 		
 		//Solenoids
 		begin.sol1.set(button_toggles1[1]);//3
+		
 		begin.sol2.set(button_toggles1[3]);//4
+
+		if(button_toggles1[3]){
+			drive.setMax(60);
+		}
+		else{
+			drive.setMax(60);
+		}
+		
+		
+		if(begin.stick1.getRawButton(6)){
+			begin.eCodeLeft.reset();
+			begin.eCodeRight.reset();
+		};
 		
 		//Camera Toggle
 //		if(button_toggles1[1]){

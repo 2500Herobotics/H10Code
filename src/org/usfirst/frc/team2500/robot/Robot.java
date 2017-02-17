@@ -18,7 +18,7 @@ public class Robot extends IterativeRobot {
 	public static Begin begin = new Begin();
 	public static Autonomous autonomous = new Autonomous();
 	public static TeleOp teleop = new TeleOp();
-//	public static Vision vision = new Vision(); 
+//	  public static Vision vision = new Vision(); 
 //    public VisionThread visionThread;
 //    public UsbCamera gearCam;
 //    public UsbCamera driveCam;
@@ -29,15 +29,10 @@ public class Robot extends IterativeRobot {
      */
 	
     Command autonomousCommand;
-    SendableChooser autoChooser;
+    SendableChooser<Command> autoChooser;
     
 	public void robotInit()
 	{	
-		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Auto Left", new AutoLeft());
-		autoChooser.addObject("Auto Center", new AutoMid());
-		autoChooser.addObject("Auto Right", new AutoRight());
-		SmartDashboard.putData("Auto mode chooser", autoChooser);
 		
 //	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
 //
@@ -53,16 +48,20 @@ public class Robot extends IterativeRobot {
 //	        }
 //	    });
 //	    visionThread.start();
+		
+		autoChooser = new SendableChooser<Command>();
+		autoChooser.addDefault("Auto Left", new AutoLeft());
+		autoChooser.addObject("Auto Center", new AutoMid());
+		autoChooser.addObject("Auto Right", new AutoRight());
+		SmartDashboard.putData("Auto mode chooser", autoChooser);
 
 	}
 	
 	public void autonomousInit(){
-//		autonomous.autonomousInit();
 		autonomousCommand = (Command) autoChooser.getSelected();
 		autonomousCommand.start();
 	}
 	public void autonomousPeriodic(){
-//		autonomous.autonomousPeriodic();
 		Scheduler.getInstance().run();
 	}
 	

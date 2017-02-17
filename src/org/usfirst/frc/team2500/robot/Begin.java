@@ -39,6 +39,8 @@ public class Begin {
 	Encoder eCodeLeft;
 	Encoder eCodeRight;
 	
+//	int max_speed;
+	
 //	Spark Climbing;
 //	ADXRS450_Gyro gyro;
 	
@@ -50,10 +52,7 @@ public class Begin {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public Begin() {
-
-//    	driveTrain1 = new RobotDrive(0,1,4,3);
-    	
+    public Begin() {    	
 //    	gyro = new ADXRS450_Gyro();
 //    	Climbing = new Spark(7);
     	stick1 = new Joystick(0);
@@ -65,12 +64,13 @@ public class Begin {
     	eCodeRight = new Encoder(2, 3, false);
     	eCodeRight.setDistancePerPulse(0.16);
 
-    	talon_left1 = new Talon(2);
-    	talon_right1 = new Talon(5);
-    	talon_left2 = new Talon(0);
+    	talon_left1 = new Talon(0);
+    	talon_left2 = new Talon(1);
+    	talon_left3 = new Talon(2);
+    	
+    	talon_right1 = new Talon(3);
     	talon_right2 = new Talon(4);
-    	talon_left3 = new Talon(1);
-    	talon_right3 = new Talon(3);
+    	talon_right3 = new Talon(5);
     	
     	drive = new eCodeDrive(talon_left1, talon_left2, talon_left3, talon_right1, talon_right2, talon_right3, eCodeLeft, eCodeRight);
     	
