@@ -18,41 +18,42 @@ public class Robot extends IterativeRobot {
 	public static Begin begin = new Begin();
 	public static Autonomous autonomous = new Autonomous();
 	public static TeleOp teleop = new TeleOp();
-//	  public static Vision vision = new Vision(); 
-//    public VisionThread visionThread;
-//    public UsbCamera gearCam;
+	public static Vision vision = new Vision(); 
+    public VisionThread visionThread;
+    public UsbCamera gearCam;
 //    public UsbCamera driveCam;
     
     private final Object imgLock = new Object();
 	/**
      * This function is called periodically during test mode
      */
-	
+
     Command autonomousCommand;
     SendableChooser<Command> autoChooser;
     
 	public void robotInit()
 	{	
 		
-//	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
+	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
 //
 //	    driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 //	    
 //
-//	    visionThread = new VisionThread(driveCam, new Vision(), pipeline -> {
-//	        if (!pipeline.filterContoursOutput().isEmpty()) {
-//	            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-//	            synchronized (imgLock) {
-//	                begin.centerX = r.x + (r.width / 2);
-//	            }
-//	        }
-//	    });
-//	    visionThread.start();
+	    visionThread = new VisionThread(gearCam, new Vision(), pipeline -> {
+	        if (!pipeline.filterContoursOutput().isEmpty()) {
+	            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+	            synchronized (imgLock) {
+	                begin.centerX = r.x + (r.width / 2);
+	            }
+	        }
+	    });
+	    visionThread.start();
 		
 		autoChooser = new SendableChooser<Command>();
 		autoChooser.addDefault("Auto Left", new Autoleft());
 		autoChooser.addObject("Auto Center", new Automid());
 		autoChooser.addObject("Auto Right", new Autoright());
+		autoChooser.addObject("Auto Right", new Autonone());
 		SmartDashboard.putData("Auto mode chooser", autoChooser);
 
 	}
@@ -73,6 +74,7 @@ public class Robot extends IterativeRobot {
 		 System.out.println(luck.Message());
 		 begin.startup = 20;
 		 begin.toggle = true;
+		 teleop.teleopInit();
 	}
 	
 	public void teleopPeriodic() 

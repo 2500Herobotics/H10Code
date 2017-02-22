@@ -12,10 +12,13 @@ public class Autoleft extends Command {
 	double target2R = 0;
 	double target3L = 360;
 	double target3R = 180;
+	double target4L = 355;
+	double target4R = 175;
 
 	boolean reach1;
 	boolean reach2;
 	boolean reach3;
+	boolean reach4;
 	
 	double k = -0.1;
 	/**
@@ -31,6 +34,7 @@ public class Autoleft extends Command {
     	reach1 = false;
     	reach2 = false;
     	reach3 = false;
+    	reach4 = false;
     }
 
     /**
@@ -50,7 +54,14 @@ public class Autoleft extends Command {
     	}
     	else if(!reach3) {
     		if(begin.drive.driveDistance(target3L, target3R, 1, 0.5) || reach3){
+    			begin.sol1.set(true);
         		reach3 = true;
+    		}
+    	}
+    	else if(!reach4) {
+    		if(begin.drive.driveDistance(target4L, target4R, 1, 0.5) || reach4){
+    			begin.sol1.set(false);
+        		reach4 = true;
     		}
     	}
     	else{

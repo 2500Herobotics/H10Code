@@ -27,6 +27,8 @@ public class Begin {
 	Talon talon_right2;
 	Talon talon_left3;
 	Talon talon_right3;
+	
+	Talon climber;
 
 	eCodeDrive drive;
 	
@@ -35,7 +37,6 @@ public class Begin {
 	Solenoid sol1;
 	Solenoid sol2;
 	Solenoid sol3;
-	Solenoid sol4;
 	Encoder eCodeLeft;
 	Encoder eCodeRight;
 	
@@ -58,11 +59,14 @@ public class Begin {
     	stick1 = new Joystick(0);
     	sol1 = new Solenoid(0);
     	sol2 = new Solenoid(1);
+    	sol3 = new Solenoid(2);
     	
     	eCodeLeft = new Encoder(0, 1, true);
-    	eCodeLeft.setDistancePerPulse(0.16);
+    	eCodeLeft.setDistancePerPulse(0.15514);
+//    	eCodeLeft.setDistancePerPulse(1);
     	eCodeRight = new Encoder(2, 3, false);
-    	eCodeRight.setDistancePerPulse(0.16);
+//    	eCodeRight.setDistancePerPulse(1);
+    	eCodeRight.setDistancePerPulse(0.37889);
 
     	talon_left1 = new Talon(0);
     	talon_left2 = new Talon(1);
@@ -71,6 +75,8 @@ public class Begin {
     	talon_right1 = new Talon(3);
     	talon_right2 = new Talon(4);
     	talon_right3 = new Talon(5);
+    	
+    	climber = new Talon(6);
     	
     	drive = new eCodeDrive(talon_left1, talon_left2, talon_left3, talon_right1, talon_right2, talon_right3, eCodeLeft, eCodeRight);
     	
