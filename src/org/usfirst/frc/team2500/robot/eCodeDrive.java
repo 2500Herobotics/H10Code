@@ -207,12 +207,12 @@ public class eCodeDrive {
 //		left_current_speed = calculateTargetSpeed(left_enc, leftValue, left_current_speed);
 //		right_current_speed = calculateTargetSpeed(right_enc, rightValue, right_current_speed);
 //
-//		left1.set(left_current_speed);
-//		left2.set(left_current_speed);
-//		left3.set(left_current_speed);
-//		right1.set(right_current_speed);
-//		right2.set(right_current_speed);
-//		right3.set(right_current_speed);
+		left1.set(leftValue);
+		left2.set(leftValue);
+		left3.set(leftValue);
+		right1.set(rightValue);
+		right2.set(rightValue);
+		right3.set(rightValue);
 //
 //		System.out.println("Tank Left: " + left_current_speed + "       Left Target: " + leftValue);
 //		System.out.println("Tank Right: " + right_current_speed + "       Right Target: " + rightValue);

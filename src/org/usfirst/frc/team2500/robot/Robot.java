@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 public class Robot extends IterativeRobot {
 	public static GoodLuck luck = new GoodLuck();
 	public static Begin begin = new Begin();
-	public static Autonomous autonomous = new Autonomous();
 	public static TeleOp teleop = new TeleOp();
 	public static Vision vision = new Vision(); 
     public VisionThread visionThread;
@@ -28,42 +27,45 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
 
-    Command autonomousCommand;
-    SendableChooser<Command> autoChooser;
+//    Command autonomousCommand;
+//    SendableChooser<Command> autoChooser;
     
 	public void robotInit()
-	{	
-		
-	    gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
+	{
 //
-//	    driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+			gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
+//
+//	    	driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 //	    
 //
-	    visionThread = new VisionThread(gearCam, new Vision(), pipeline -> {
-	        if (!pipeline.filterContoursOutput().isEmpty()) {
-	            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-	            synchronized (imgLock) {
-	                begin.centerX = r.x + (r.width / 2);
-	            }
-	        }
-	    });
-	    visionThread.start();
-		
-		autoChooser = new SendableChooser<Command>();
-		autoChooser.addDefault("Auto Left", new Autoleft());
-		autoChooser.addObject("Auto Center", new Automid());
-		autoChooser.addObject("Auto Right", new Autoright());
-		autoChooser.addObject("Auto Right", new Autonone());
-		SmartDashboard.putData("Auto mode chooser", autoChooser);
-
+//	    	visionThread = new VisionThread(gearCam, new Vision(), pipeline -> {
+//	        	if (!pipeline.filterContoursOutput().isEmpty()) {
+//	            	Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+//	            	synchronized (imgLock) {
+//	                	begin.centerX = r.x + (r.width / 2);
+//	                	System.out.println(begin.centerX);
+//	            	}
+//	        	}
+//	    	});
+//	    visionThread.start();
+	    
+//		autoChooser = new SendableChooser<Command>();
+//		autoChooser.addDefault("eCode Left", new eCodeLeft());
+//		autoChooser.addObject("eCode Center", new eCodeMid());
+//		autoChooser.addObject("eCode Right", new eCodeRight());
+//		autoChooser.addObject("Time Left", new TimerLeft());
+//		autoChooser.addObject("Time Center", new TimerMid());
+//		autoChooser.addObject("Time Right", new TimerRight());
+//		autoChooser.addObject("No Auto", new Autonone());
+//		SmartDashboard.putData("Auto mode chooser", autoChooser);
 	}
 	
 	public void autonomousInit(){
-		autonomousCommand = (Command) autoChooser.getSelected();
-		autonomousCommand.start();
+//		autonomousCommand = (Command) autoChooser.getSelected();
+//		autonomousCommand.start();
 	}
 	public void autonomousPeriodic(){
-		Scheduler.getInstance().run();
+//		Scheduler.getInstance().run();
 	}
 	
 	public void teleopInit()

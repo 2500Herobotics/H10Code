@@ -35,7 +35,6 @@ public class TeleOp extends IterativeRobot{
     public TeleOp(){
     	
     	begin = Robot.begin;
-    	drive = begin.drive;
 //    	vision = Robot.vision;
     	
     	previous_button_states1 = new boolean[7];
@@ -52,7 +51,7 @@ public class TeleOp extends IterativeRobot{
 	int timer = 0;
 	
 	public void teleopInit(){
-		drive.setTeleopPID(true);
+//		drive.setTeleopPID(true);
 	}
 	
     public void teleopPeriodic() 
@@ -94,12 +93,12 @@ public class TeleOp extends IterativeRobot{
 			}
 		}
 
-		if(button_toggles1[1]){
-			drive.setMax(60);
-		}
-		else{
-			drive.setMax(60);
-		}
+//		if(button_toggles1[1]){
+//			drive.setMax(60);
+//		}
+//		else{
+//			drive.setMax(60);
+//		}
 
 		//lock/unlock on X
 		begin.sol3.set(button_toggles1[1]);
@@ -140,7 +139,7 @@ public class TeleOp extends IterativeRobot{
 				mov_value = 0;
 			}
 			
-			drive.arcadeDrive(turning_value, mov_value);
+			robot.begin.drive.arcadeDrive(turning_value, mov_value);
 			
 			System.out.println("Left: " + begin.eCodeLeft.getDistance());
 			System.out.println("Right: " + begin.eCodeRight.getDistance());

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.DigitalOutput;
@@ -21,16 +22,18 @@ public class Begin {
 	DigitalOutput light5;
 	DigitalOutput light6;
 
-	Talon talon_left1;
-	Talon talon_right1;
-	Talon talon_left2;
-	Talon talon_right2;
-	Talon talon_left3;
-	Talon talon_right3;
+//	Talon talon_left1;
+//	Talon talon_right1;
+//	Talon talon_left2;
+//	Talon talon_right2;
+//	Talon talon_left3;
+//	Talon talon_right3;
 	
 	Talon climber;
 
-	eCodeDrive drive;
+	RobotDrive drive;
+	
+//	eCodeDrive drive;
 	
 	Joystick stick1;
 	Joystick stick2;
@@ -68,17 +71,17 @@ public class Begin {
 //    	eCodeRight.setDistancePerPulse(1);
     	eCodeRight.setDistancePerPulse(0.37889);
 
-    	talon_left1 = new Talon(0);
-    	talon_left2 = new Talon(1);
-    	talon_left3 = new Talon(2);
+//    	talon_left1 = new Talon(0);
+//    	talon_left2 = new Talon(1);
+//    	talon_left3 = new Talon(6);
+//    	
+//    	talon_right1 = new Talon(2);
+//    	talon_right2 = new Talon(3);
+//    	talon_right3 = new Talon(5);
     	
-    	talon_right1 = new Talon(3);
-    	talon_right2 = new Talon(4);
-    	talon_right3 = new Talon(5);
-    	
-    	climber = new Talon(6);
-    	
-    	drive = new eCodeDrive(talon_left1, talon_left2, talon_left3, talon_right1, talon_right2, talon_right3, eCodeLeft, eCodeRight);
+    	climber = new Talon(4);
+    	drive = new RobotDrive(0,1,2,3);
+//    	drive = new eCodeDrive(talon_left1, talon_left2, talon_left3, talon_right1, talon_right2, talon_right3, eCodeLeft, eCodeRight);
     	
     	light1 = new DigitalOutput(4);
     	light2 = new DigitalOutput(5);
