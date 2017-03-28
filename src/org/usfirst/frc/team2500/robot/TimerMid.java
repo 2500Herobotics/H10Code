@@ -1,16 +1,13 @@
 package org.usfirst.frc.team2500.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 
 
 public class TimerMid extends Command {
     double speed = 0;
-	double time1 = 90;
-	double time2 = 180;
-	double time3 = 360;
-	double time4 = 450;
+	double time1 = 260;
+	double time2 = 320;
+	double time3 = 400;
 	
 	boolean end = false;
 	
@@ -24,8 +21,8 @@ public class TimerMid extends Command {
 		begin = Robot.begin;
     	begin.eCodeLeft.reset();
     	begin.eCodeRight.reset();
-//    	drive = new eCodeDrive();
     	timer = 0;
+    	end = false;
     }
 
     /**
@@ -33,20 +30,22 @@ public class TimerMid extends Command {
      */
     public void execute() {
     	timer++;
-    	
-//    	if(timer < time1){
-//    		begin.drive.arcadeDrive(1, 1);
-//    	}
-//    	else if(timer < time2){
-//    		begin.drive.arcadeDrive(1, 1);
-//    	}
-//    	else if(timer < time3){
-//    		begin.drive.arcadeDrive(1, 1);	
-//    	}
-//    	else if(timer < time4){
-//    		begin.drive.arcadeDrive(0, 0);
-//    		end = true;
-//    	}
+    	System.out.println(timer);
+    	if(timer < time1){
+    		begin.drive.arcadeDrive(0, 0.5);
+    		begin.jaw.set(false);
+    	}
+    	else if(timer < time2){
+    		begin.drive.arcadeDrive(0, 0);
+    		begin.jaw.set(true);
+    	}
+    	else if(timer < time3){
+    		begin.drive.arcadeDrive(0, -0.5);
+    	}
+    	else{
+    		begin.drive.arcadeDrive(0, 0);
+    		end = true;
+    	}
     	
     	System.out.println();
     }

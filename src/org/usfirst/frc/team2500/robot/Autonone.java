@@ -4,12 +4,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Autonone extends Command{
 
+	
 	public void initialize() {
-		
 	}
 	
 	public void execute() {
-		
 	}
 	
 	@Override

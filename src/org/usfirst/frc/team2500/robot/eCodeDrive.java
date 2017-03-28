@@ -9,7 +9,6 @@ public class eCodeDrive {
 //	double left_current_speed = 0;
 //	double right_current_speed = 0;
 	
-	
 //	WheelSpeedPID left_drivetrain;
 //	WheelSpeedPID right_drivetrain;
 	
@@ -61,13 +60,6 @@ public class eCodeDrive {
 //		//return currentSpeed + ((((targetSpeed * max_speed) - enc.getRate())/max_speed) * k);
 //		return (((targetSpeed * max_speed) - enc.getRate())/max_speed);
 //	}
-	
-	private void reset(){
-//		left_current_speed = 0;
-//		right_current_speed = 0;
-		previous_error = 0;
-		previous_time = 0;
-	}
 	
 	public void setMax(int max){
 		max_speed = max;

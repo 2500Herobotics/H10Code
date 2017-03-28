@@ -1,16 +1,15 @@
 package org.usfirst.frc.team2500.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 
 
 public class TimerRight extends Command {
     double speed = 0;
-	double time1 = 90;
-	double time2 = 180;
-	double time3 = 360;
-	double time4 = 450;
+	double time1 = 35;
+	double time2 = 40;
+	double time3 = 65;
+	double time4 = 130;
+	double time5 = 160;
 	
 	boolean end = false;
 	
@@ -24,8 +23,8 @@ public class TimerRight extends Command {
 		begin = Robot.begin;
     	begin.eCodeLeft.reset();
     	begin.eCodeRight.reset();
-//    	drive = new eCodeDrive();
     	timer = 0;
+    	end = false;
     }
 
     /**
@@ -33,20 +32,28 @@ public class TimerRight extends Command {
      */
     public void execute() {
     	timer++;
-//    	
-//    	if(timer < time1){
-//    		begin.drive.arcadeDrive(1, 1);
-//    	}
-//    	else if(timer < time2){
-//    		begin.drive.arcadeDrive(1, -1);
-//    	}
-//    	else if(timer < time3){
-//    		begin.drive.arcadeDrive(1, 1);	
-//    	}
-//    	else if(timer < time4){
-//    		begin.drive.arcadeDrive(0, 0);
-//    		end = true;
-//    	}
+    	System.out.println(timer);
+    	if(timer < time1){
+    		begin.drive.arcadeDrive(1, 0);
+    		begin.jaw.set(true);
+    	}
+    	else if(timer < time2){
+    		begin.drive.arcadeDrive(0, -1);
+    	}
+    	else if(timer < time3){
+    		begin.drive.arcadeDrive(1, 0);
+    	}
+    	else if(timer < time4){
+    		begin.drive.arcadeDrive(0, 0);
+    	}
+    	else if(timer < time5){
+    		begin.drive.arcadeDrive(-75, 0);
+    	}
+    	else
+    	{
+    		begin.drive.arcadeDrive(0, 0);
+    		end = true;
+    	}
     	
     	System.out.println();
     }

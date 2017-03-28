@@ -3,13 +3,10 @@ package org.usfirst.frc.team2500.robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class TimerLeft extends Command {
+public class TimerLine extends Command {
     double speed = 0;
-	double time1 = 35;
-	double time2 = 40;
-	double time3 = 65;
-	double time4 = 130;
-	double time5 = 160;
+	double time1 = 110;
+	double time2 = 150;
 	
 	boolean end = false;
 	
@@ -34,23 +31,13 @@ public class TimerLeft extends Command {
     	timer++;
     	System.out.println(timer);
     	if(timer < time1){
-    		begin.drive.arcadeDrive(1, 0);
-    		begin.jaw.set(true);
+    		begin.shift.set(false);
+    		begin.drive.arcadeDrive(0, 0.75);
     	}
     	else if(timer < time2){
-    		begin.drive.arcadeDrive(0, 1);
+    		begin.drive.arcadeDrive(-0.5, 0);
     	}
-    	else if(timer < time3){
-    		begin.drive.arcadeDrive(1, 0);
-    	}
-    	else if(timer < time4){
-    		begin.drive.arcadeDrive(0, 0);
-    	}
-    	else if(timer < time5){
-    		begin.drive.arcadeDrive(-75, 0);
-    	}
-    	else
-    	{
+    	else {
     		begin.drive.arcadeDrive(0, 0);
     		end = true;
     	}

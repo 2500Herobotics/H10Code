@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2500.robot;
 
-import org.opencv.core.Rect;
-import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -11,81 +9,62 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionThread;
-import edu.wpi.first.wpilibj.DriverStation;
 
 public class Robot extends IterativeRobot {
 	public static GoodLuck luck = new GoodLuck();
 	public static Begin begin = new Begin();
 	public static TeleOp teleop = new TeleOp();
-	public static Vision vision = new Vision(); 
     public VisionThread visionThread;
-    public UsbCamera gearCam;
-//    public UsbCamera driveCam;
+//    public UsbCamera gearCam;
+    public UsbCamera Cam0;
+    public UsbCamera Cam1;
     
-    private final Object imgLock = new Object();
 	/**
      * This function is called periodically during test mode
      */
 
-//    Command autonomousCommand;
-//    SendableChooser<Command> autoChooser;
+    Command autonomousCommand;
+    SendableChooser<Command> autoChooser;
     
 	public void robotInit()
 	{
-//
-			gearCam = CameraServer.getInstance().startAutomaticCapture("cam0", 0);   
-//
-//	    	driveCam = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
-//	    
-//
-//	    	visionThread = new VisionThread(gearCam, new Vision(), pipeline -> {
-//	        	if (!pipeline.filterContoursOutput().isEmpty()) {
-//	            	Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-//	            	synchronized (imgLock) {
-//	                	begin.centerX = r.x + (r.width / 2);
-//	                	System.out.println(begin.centerX);
-//	            	}
-//	        	}
-//	    	});
-//	    visionThread.start();
-	    
-//		autoChooser = new SendableChooser<Command>();
-//		autoChooser.addDefault("eCode Left", new eCodeLeft());
-//		autoChooser.addObject("eCode Center", new eCodeMid());
-//		autoChooser.addObject("eCode Right", new eCodeRight());
-//		autoChooser.addObject("Time Left", new TimerLeft());
-//		autoChooser.addObject("Time Center", new TimerMid());
-//		autoChooser.addObject("Time Right", new TimerRight());
-//		autoChooser.addObject("No Auto", new Autonone());
-//		SmartDashboard.putData("Auto mode chooser", autoChooser);
+		Cam0 = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+		Cam1 = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+
+		autoChooser = new SendableChooser<Command>();
+		autoChooser.addDefault("No Auto", new Autonone());
+		autoChooser.addObject("Time Left", new TimerLeft());
+		autoChooser.addObject("Time Center", new TimerMid());
+		autoChooser.addObject("Time Right", new TimerRight());
+		autoChooser.addObject("Base Line", new TimerLine());
+		SmartDashboard.putData("Auto mode chooser", autoChooser);
 	}
 	
-	public void autonomousInit(){
-//		autonomousCommand = (Command) autoChooser.getSelected();
-//		autonomousCommand.start();
+	public void autonomousInit()
+	{
+		 System.out.println();
+		 System.out.println();
+		 System.out.println();
+		 System.out.println(luck.Message());
+		autonomousCommand = (Command) autoChooser.getSelected();
+		autonomousCommand.start();
 	}
 	public void autonomousPeriodic(){
-//		Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
 	}
 	
 	public void teleopInit()
 	{
-		System.out.println();
-		System.out.println();
-		 System.out.println();
-		 System.out.println(luck.Message());
-		 begin.startup = 20;
-		 begin.toggle = true;
-		 teleop.teleopInit();
+		begin.toggle = true;
+		teleop.teleopInit();
 	}
 	
-	public void teleopPeriodic() 
+	public void teleopPeriodic()
 	{
 		teleop.teleopPeriodic();
-//	    System.out.println(begin.centerX);
 	}
 	
-    public void testPeriodic() 
+    public void testPeriodic()
     {
     	LiveWindow.run();
     }
@@ -95,6 +74,6 @@ public class Robot extends IterativeRobot {
 		System.out.println();
 		System.out.println();
 		System.out.println();
-		System.out.println("Good game guys tell me if you want any changes when you get back to the pit.");
+		System.out.println("Good game. 6/9");
     }
 }
