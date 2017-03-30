@@ -51,7 +51,6 @@ public class Robot extends IterativeRobot {
 	
 	public void teleopInit()
 	{
-		begin.toggle = true;
 		teleop.teleopInit();
 	}
 	
