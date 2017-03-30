@@ -37,24 +37,24 @@ public class Autoleft extends Command {
      */
     public void execute() {
     	
-    	if(!reach1){
-    		if(begin.drive.driveDistance(target1, 1, 0.5)){
-        		reach1 = true;
-    		}
-    	}
-    	else if(!reach2) {
-    		if(begin.drive.driveDistance(target2L, target2R, 1, 0.5) || reach2){
-        		reach2 = true;
-    		}
-    	}
-    	else if(!reach3) {
-    		if(begin.drive.driveDistance(target3L, target3R, 1, 0.5) || reach3){
-        		reach3 = true;
-    		}
-    	}
-    	else{
-    		begin.drive.arcadeDrive(0, 0);
-    	}
+//    	if(!reach1){
+//    		if(begin.drive.driveDistance(target1, 1, 0.5)){
+//        		reach1 = true;
+//    		}
+//    	}
+//    	else if(!reach2) {
+//    		if(begin.drive.driveDistance(target2L, target2R, 1, 0.5) || reach2){
+//        		reach2 = true;
+//    		}
+//    	}
+//    	else if(!reach3) {
+//    		if(begin.drive.driveDistance(target3L, target3R, 1, 0.5) || reach3){
+//        		reach3 = true;
+//    		}
+//    	}
+//    	else{
+//    		begin.drive.arcadeDrive(0, 0);
+//    	}
     	
     	System.out.println("Left Distance: " + begin.eCodeLeft.getDistance());
     	System.out.println("Right Distance: " + begin.eCodeRight.getDistance());

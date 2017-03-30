@@ -6,12 +6,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 //import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Talon;
 
 public class Begin {
-	
-	boolean toggle;
 	
 	Talon climber;
 
@@ -23,12 +20,14 @@ public class Begin {
 	Talon talon_right3;
 	
 	eCodeDrive drive;
+//	RobotDrive drive;
 	
 	Joystick stick;
 	
 	Solenoid jaw;
 	Solenoid shift;
 	Solenoid Break;
+	
 	Encoder eCodeLeft;
 	Encoder eCodeRight;
 	
@@ -54,6 +53,8 @@ public class Begin {
     	eCodeRight = new Encoder(2, 3, false);
     	eCodeRight.setDistancePerPulse(0.15514);
 
+    	climber = new Talon(6);
+    	
     	talon_left1 = new Talon(0);
     	talon_left2 = new Talon(1);
     	talon_left3 = new Talon(2);
@@ -62,9 +63,8 @@ public class Begin {
     	talon_right2 = new Talon(4);
     	talon_right3 = new Talon(5);
     	
-    	climber = new Talon(6);
-    	
     	drive = new eCodeDrive(talon_left1, talon_left2, talon_left3, talon_right1, talon_right2, talon_right3, eCodeLeft, eCodeRight);
+//    	drive = new RobotDrive(0, 1);
     }
     
     public void robotInit(){

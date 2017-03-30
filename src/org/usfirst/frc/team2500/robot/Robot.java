@@ -32,6 +32,10 @@ public class Robot extends IterativeRobot {
 		Cam1 = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 
 		autoChooser = new SendableChooser<Command>();
+		autoChooser.addDefault("No Auto", new Autonone());
+		autoChooser.addObject("Time Left", new TimerLeft());
+		autoChooser.addObject("Time Center", new TimerMid());
+		autoChooser.addObject("Time Right", new TimerRight());
 		autoChooser.addObject("Base Line", new TimerLine());
 		SmartDashboard.putData("Auto mode chooser", autoChooser);
 	}
@@ -51,7 +55,6 @@ public class Robot extends IterativeRobot {
 	
 	public void teleopInit()
 	{
-		begin.toggle = true;
 		teleop.teleopInit();
 	}
 	
