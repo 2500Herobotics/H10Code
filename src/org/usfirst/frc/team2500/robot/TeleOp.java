@@ -91,63 +91,23 @@ public class TeleOp extends IterativeRobot{
     	
     	//gear jaw open/close on A toggle
 		begin.jaw.set(button_toggles[1]);
-		
-    	String jaw;
-    	if(button_toggles[1]){
-    		jaw = "Open";
-    	}
-    	else {
-    		jaw = "Closed";
-    	}
-    	SmartDashboard.putString("Jaw", jaw);
     	SmartDashboard.putBoolean("Jaw ", button_toggles[1]);	
     	
     	//hopper open/close
     	begin.hopper.set(button_toggles[5]);
-    	
-    	//setting turn val and move val to avoid dorment movement
-		if (Math.abs(begin.stick.getRawAxis(0)) > 0.3) {
-			turning_value = begin.stick.getRawAxis(0);
-		}
-		else {
-			turning_value = 0;
-		}
-		
-		if (Math.abs(begin.stick.getRawAxis(1)) > 0.3) {
-			mov_value = -1 * begin.stick.getRawAxis(1);
-		}
-		else {
-			mov_value = 0;
-		}
 		
 		//invert contoles on Y
 		Boolean dMode;
 		if(button_toggles[4]){
 			mov_value = -1 * mov_value;
-			dMode = false;
 		}
-		else{
-			dMode = true;
-		}
-    	SmartDashboard.putBoolean("Invert", dMode);
+    	SmartDashboard.putBoolean("Invert", button_toggles[4]);
 		
-		//Sqaure values
-		if (mov_value >= 0.0) {
-			mov_value = Math.pow(mov_value,1.5);
-	      } else {
-	    	  mov_value = -(Math.pow(-1 * mov_value,1.5));
-	      }
-	      if (turning_value >= 0.0) {
-	    	  turning_value = Math.pow(turning_value,1.5);
-	      } else {
-	    	  turning_value = -(Math.pow(-1 * turning_value,1.5));
-	      }
-
-	     //hold start to drive foroward
-	     if(begin.stick.getRawButton(8)){
-	    	 turning_value = 0;
-	     }
-	      
+	    //hold start to drive foroward
+	    if(begin.stick.getRawButton(8)){
+	    	turning_value = 0;
+	    }
+	    
 		//shift on B if you are atleast going 35 rate on ecode left and shifts back if your speed dropes back down to 5 rate
 		if(!button_toggles[2]){
 			begin.shift.set(false);
@@ -187,7 +147,6 @@ public class TeleOp extends IterativeRobot{
 			if(begin.eCodeLeft.getRate() <= LowGearMin){
 				shifted = false;
 			}
-			
 		}
 
     	SmartDashboard.putBoolean("Gear", gear_bool);

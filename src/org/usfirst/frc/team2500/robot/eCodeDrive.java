@@ -155,7 +155,7 @@ public class eCodeDrive {
 	          leftTargetSpeed = moveValue - rotateValue;
 	          rightTargetSpeed = -Math.max(-moveValue, -rotateValue);
 	        }
-	      }
+	    }
 	    
 //	    double left_next;
 //	    double right_next;
