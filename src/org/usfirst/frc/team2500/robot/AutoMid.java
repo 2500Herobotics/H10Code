@@ -3,7 +3,7 @@ package org.usfirst.frc.team2500.robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class TimerMid extends Command {
+public class AutoMid extends Command {
     double distance_1 = 86;
     double distance_2 = 50;
     double time = 40;

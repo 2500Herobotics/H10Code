@@ -39,11 +39,10 @@ public class Robot extends IterativeRobot {
 
 		//setting Smartdashboard auto buttons
 		autoChooser = new SendableChooser<Command>();
-		autoChooser.addObject("Base Line", new TimerLine());
-		autoChooser.addObject("Left", new TimerLeft());
-		autoChooser.addObject("Mid", new TimerMid());
-		autoChooser.addObject("Right", new TimerRight());
-		autoChooser.addObject("Temp", new autoTemp());
+		autoChooser.addObject("Base Line", new AutoLine());
+		autoChooser.addObject("Left", new AutoLeft());
+		autoChooser.addObject("Mid", new AutoMid());
+		autoChooser.addObject("Right", new AutoRight());
 		SmartDashboard.putData("Auto mode chooser", autoChooser);
 		
 //	    try{
@@ -54,6 +53,7 @@ public class Robot extends IterativeRobot {
 //	    catch(IOException e){
 //	    	System.out.print("The file isnt printing");
 //	    }
+		
 	}
 	
 	public void autonomousInit()

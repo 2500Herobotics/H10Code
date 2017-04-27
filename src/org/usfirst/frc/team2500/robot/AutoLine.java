@@ -3,7 +3,7 @@ package org.usfirst.frc.team2500.robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class TimerLine extends Command {
+public class AutoLine extends Command {
     double speed = 0;
 	double time1 = 110;
 	double time2 = 150;

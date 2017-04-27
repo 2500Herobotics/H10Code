@@ -24,7 +24,6 @@ public class Begin {
 	Timer shiftTimer;
 	
 	eCodeDrive drive;
-//	RobotDrive drive;
 	
 	Joystick stick;
 	Joystick stick2;
@@ -64,10 +63,8 @@ public class Begin {
     	//Encoders
     	eCodeLeft = new Encoder(0, 1, true);
     	eCodeLeft.setDistancePerPulse(0.163265);
-//    	eCodeLeft.setDistancePerPulse(1/(6*Math.PI));
     	eCodeRight = new Encoder(2, 3, false);
     	eCodeRight.setDistancePerPulse(0.163265);
-//    	eCodeRight.setDistancePerPulse(0.15514);
 
     	//Drive train Motors
     	talon_left1 = new Talon(0);
@@ -80,7 +77,6 @@ public class Begin {
     	
     	//Ecode drive class
     	drive = new eCodeDrive(talon_left1, talon_left2, talon_left3, talon_right1, talon_right2, talon_right3, eCodeLeft, eCodeRight);
-//    	drive = new RobotDrive(0, 1);
     	
     	//Climbing motor
     	climber = new Talon(6);

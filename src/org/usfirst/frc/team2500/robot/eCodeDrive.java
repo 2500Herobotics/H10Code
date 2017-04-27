@@ -43,21 +43,9 @@ public class eCodeDrive {
 		
 		this.left_enc = left_enc;
 		this.right_enc = right_enc;
-		
-//		left_drivetrain = new WheelSpeedPID();
-//		left_drivetrain.setEnc(left_enc);
-//		left_drivetrain.setMotors(left1, left2, left3);
-//		
-//		right_drivetrain = new WheelSpeedPID();
-//		right_drivetrain.setEnc(right_enc);
-//		right_drivetrain.setMotors(right1, right2, right3);
-//		
-//		left_drivetrain.enable();
-//		right_drivetrain.enable();
 	}
 	
 	private double calculateTargetSpeed(Encoder enc, double targetSpeed, double currentSpeed){
-		//return currentSpeed + ((((targetSpeed * max_speed) - enc.getRate())/max_speed) * k);
 		return (((targetSpeed * max_speed) - enc.getRate())/max_speed);
 	}
 	
@@ -85,7 +73,6 @@ public class eCodeDrive {
 	public boolean driveDistance(double target, double p, double d){
 		time = System.currentTimeMillis();
 		eCodeVal = (left_enc.getDistance() + (right_enc.getDistance())) / 2;
-//		eCodeVal = left_enc.getDistance();
 		error = target - eCodeVal;
 		derivative = (error - previous_error) / (time - previous_time);
 		speed = ((error * p) + (derivative * d)) / target;
@@ -96,7 +83,6 @@ public class eCodeDrive {
 		right1.set(speed);
 		right2.set(speed);
 		right3.set(speed);
-//		tankDrive(error, error);
 		previous_error = error;
 		previous_time = time;
 		System.out.println("Error: " + error + " Target: " + target*0.15);
@@ -156,53 +142,6 @@ public class eCodeDrive {
 	          rightTargetSpeed = -Math.max(-moveValue, -rotateValue);
 	        }
 	    }
-	    
-//	    double left_next;
-//	    double right_next;
-//		if (Math.abs(moveValue) > 0.1){
-//			left_drivetrain.setEnable(true);
-//			right_drivetrain.setEnable(true);
-//			
-//			
-//			
-//			left_drivetrain.setSetpoint(moveValue * max_speed);
-//			right_drivetrain.setSetpoint(-1 * moveValue * max_speed);
-//			left_next = calculateTargetSpeed(left_enc, moveValue, left_current_speed);
-//			right_next = calculateTargetSpeed(right_enc, moveValue, right_current_speed);
-//			
-////			System.out.println("Left Speed: " + left_current_speed);
-////			System.out.println("Right Speed: " + right_current_speed);
-//			
-//			leftTargetSpeed = (left_next + left_current_speed)*k + left_enc.getRate()*max_speed;
-//			rightTargetSpeed = (right_next + right_current_speed)*k + right_enc.getRate()*max_speed;
-//			
-//			left_current_speed = left_next;
-//			right_current_speed = right_next;
-//		}
-//	    else {
-//	    	//turning code doesn't use PID or encoders
-//	    	reset();
-//	    	left_drivetrain.setEnable(false);
-//	    	right_drivetrain.setEnable(false);
-//	        if (rotateValue > 0.0) {
-//	          leftTargetSpeed = -Math.max(-moveValue, rotateValue);
-//	          rightTargetSpeed = moveValue + rotateValue;
-//	        } else {
-//	          leftTargetSpeed = moveValue - rotateValue;
-//	          rightTargetSpeed = -Math.max(-moveValue, -rotateValue);
-//	        }
-//			left1.set(leftTargetSpeed);
-//			left2.set(leftTargetSpeed);
-//			left3.set(leftTargetSpeed);
-//			right1.set(rightTargetSpeed);
-//			right2.set(rightTargetSpeed);
-//			right3.set(rightTargetSpeed);
-//	      }
-//		System.out.println("Left Speed: " + left_enc.getRate());
-//		System.out.println("Right Speed: " + right_enc.getRate());
-//		double left_rate = left_enc.getRate();
-//		double right_rate = right_enc.getRate();
-//		if (right_rate != 0) leftTargetSpeed *= left_rate/right_rate;
 		if (rightTargetSpeed > 0.9) rightTargetSpeed = 0.9;
 		left1.set(leftTargetSpeed);
 		left2.set(leftTargetSpeed);
@@ -213,17 +152,11 @@ public class eCodeDrive {
 	}
 	
 	public void tankDrive(double leftValue, double rightValue){
-//		left_current_speed = calculateTargetSpeed(left_enc, leftValue, left_current_speed);
-//		right_current_speed = calculateTargetSpeed(right_enc, rightValue, right_current_speed);
-//
 		left1.set(leftValue);
 		left2.set(leftValue);
 		left3.set(leftValue);
 		right1.set(rightValue);
 		right2.set(rightValue);
 		right3.set(rightValue);
-//
-//		System.out.println("Tank Left: " + left_current_speed + "       Left Target: " + leftValue);
-//		System.out.println("Tank Right: " + right_current_speed + "       Right Target: " + rightValue);
 	}
 }
