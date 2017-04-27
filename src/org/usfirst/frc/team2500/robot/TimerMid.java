@@ -4,12 +4,16 @@ import edu.wpi.first.wpilibj.command.Command;
 
 
 public class TimerMid extends Command {
+    double distance_1 = 86;
+    double distance_2 = 50;
+    double time = 40;
     double speed = 0;
-	double time1 = 260;
-	double time2 = 320;
-	double time3 = 400;
+	double time1 = 230;
+	double time2 = 260;
+	double time3 = 380;
 	
 	boolean end = false;
+	boolean forward = true;
 	
 	int timer = 0;
 	/**
@@ -23,29 +27,39 @@ public class TimerMid extends Command {
     	begin.eCodeRight.reset();
     	timer = 0;
     	end = false;
+    	forward = true;
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void execute() {
-    	timer++;
-    	System.out.println(timer);
-    	if(timer < time1){
-    		begin.drive.arcadeDrive(0, 0.5);
+    	System.out.println("Gyro: " + begin.gyro.getAngle());
+    	System.out.println("Left eCode: " + begin.eCodeLeft.getDistance());
+    	System.out.println("Right eCode: " + begin.eCodeRight.getDistance());
+    	if((begin.eCodeLeft.getDistance() < distance_1) && forward){
+    		begin.drive.arcadeDrive(-1*begin.gyro.getAngle()/10, 0.5);
     		begin.jaw.set(false);
     	}
-    	else if(timer < time2){
+    	else if(timer < time){
+    		forward = false;
+        	timer++;
     		begin.drive.arcadeDrive(0, 0);
     		begin.jaw.set(true);
     	}
-    	else if(timer < time3){
+    	else if (begin.eCodeLeft.getDistance() > distance_2){
     		begin.drive.arcadeDrive(0, -0.5);
     	}
-    	else{
+    	else {
     		begin.drive.arcadeDrive(0, 0);
-    		end = true;
     	}
+//    	else if(timer < time3){
+//    		begin.drive.arcadeDrive(0, -0.5);
+//    	}
+//    	else{
+//    		begin.drive.arcadeDrive(0, 0);
+//    		end = true;
+//    	}
     	
     	System.out.println();
     }

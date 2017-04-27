@@ -5,11 +5,17 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class TimerLeft extends Command {
     double speed = 0;
-	double time1 = 35;
-	double time2 = 40;
-	double time3 = 65;
-	double time4 = 130;
-	double time5 = 160;
+	double gTime = 35;
+
+	boolean reach1 = false;
+	boolean reach2 = false;
+	boolean reach3 = false;
+	boolean reach4 = false;
+	boolean reach5 = false;
+	boolean reach6 = false;
+	boolean reach7 = false;
+	boolean reach8 = false;
+	boolean reach9 = false;
 	
 	boolean end = false;
 	
@@ -25,29 +31,67 @@ public class TimerLeft extends Command {
     	begin.eCodeRight.reset();
     	timer = 0;
     	end = false;
+		begin.gyro.reset();
+
+		reach1 = false;
+		reach2 = false;
+		reach3 = false;
+		reach4 = false;		
+		reach5 = false;
+		reach6 = false;
+		reach7 = false;
+		reach8 = false;
+		reach9 = false;
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void execute() {
-    	timer++;
-    	System.out.println(timer);
-    	if(timer < time1){
-    		begin.drive.arcadeDrive(1, 0);
+    	System.out.println("Timer: " + timer);
+    	System.out.println("Gyro: " + begin.gyro.getAngle());
+    	if(reach1 || !begin.drive.driveDistance(93.5, 1)){
     		begin.jaw.set(true);
     	}
-    	else if(timer < time2){
-    		begin.drive.arcadeDrive(0, 1);
+    	else if(reach2 || timer < gTime){
+    		reach1 = true;
+        	timer++;
+    		begin.drive.arcadeDrive((45 + begin.gyro.getAngle())/30, 0);
+    		begin.eCodeLeft.reset();
+    		begin.eCodeRight.reset();
     	}
-    	else if(timer < time3){
-    		begin.drive.arcadeDrive(1, 0);
+    	else if(reach3 || !begin.drive.driveDistance(71, 1)){
+    		reach2 = true;
+    		timer = 0;
     	}
-    	else if(timer < time4){
-    		begin.drive.arcadeDrive(0, 0);
+    	else if(reach4 || timer < gTime){
+    		reach3 = true;
+        	timer++;
+    		begin.jaw.set(false);
     	}
-    	else if(timer < time5){
-    		begin.drive.arcadeDrive(-75, 0);
+    	else if(reach5 || !begin.drive.driveDistance(0, 1)){
+    		reach4 = true;
+    		timer = 0;
+    	}
+    	else if(reach6 || timer < gTime){
+    		reach5 = true;
+        	timer++;
+    		begin.drive.arcadeDrive(begin.gyro.getAngle()/30, 0);
+    		begin.eCodeLeft.reset();
+    		begin.eCodeRight.reset();
+    	}
+    	else if(reach7 || !begin.drive.driveDistance(93.5, 1)){
+    		reach6 = true;
+    		timer = 0;
+    	}
+    	else if(reach8 || timer < gTime){
+    		reach7 = true;
+    		begin.drive.arcadeDrive((45 + begin.gyro.getAngle())/30, 0);
+    		begin.eCodeLeft.reset();
+    		begin.eCodeRight.reset();
+    	}
+    	else if(reach9 || !begin.drive.driveDistance(240, 1, 1)){
+    		reach8 = true;
     	}
     	else
     	{

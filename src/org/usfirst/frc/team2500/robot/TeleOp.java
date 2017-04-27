@@ -10,6 +10,10 @@ public class TeleOp extends IterativeRobot{
 	Begin begin;
 	eCodeDrive drive;
 	
+	
+	
+//	 PrintWriter writer = new PrintWriter("lastGame.txt","UTF-8");
+	
 	//setting all the button
 	boolean[] previous_button_states;
 	boolean[] button_toggles;
@@ -18,12 +22,15 @@ public class TeleOp extends IterativeRobot{
 	double mov_value = 0;
 
 
-	int LowGearMax = 35;
-	int LowGearMin = 5;
+	double LowGearMax = 60;
+	double LowGearMin = 5*(0.163265);
+	double lowGearPersential = 1;
+	
 	boolean shifted = false;
+	
 	boolean gear_bool = true;
 
-	int timer = 0;
+	int rampTime = 1;
 
     public UsbCamera curCam;
 
@@ -49,7 +56,7 @@ public class TeleOp extends IterativeRobot{
      */
 	
 	public void teleopInit(){
-
+		begin.shiftTimer.start();;
 	}
 	
     public void teleopPeriodic() 
@@ -78,7 +85,7 @@ public class TeleOp extends IterativeRobot{
     	for(int i = 1; i < 6; i++){
     		if(begin.stick.getRawButton(i) && begin.stick.getRawButton(i) != previous_button_states[i])
 			{
-    		button_toggles[i] = !button_toggles[i];
+    	  	button_toggles[i] = !button_toggles[i];
 			}
     	}
     	
@@ -95,6 +102,9 @@ public class TeleOp extends IterativeRobot{
     	SmartDashboard.putString("Jaw", jaw);
     	SmartDashboard.putBoolean("Jaw ", button_toggles[1]);	
     	
+    	//hopper open/close
+    	begin.hopper.set(button_toggles[5]);
+    	
     	//setting turn val and move val to avoid dorment movement
 		if (Math.abs(begin.stick.getRawAxis(0)) > 0.3) {
 			turning_value = begin.stick.getRawAxis(0);
@@ -109,28 +119,68 @@ public class TeleOp extends IterativeRobot{
 		else {
 			mov_value = 0;
 		}
-
-		//shift on B if you are atleast going 35 rate on ecode left and shifts back if your speed dropes back down to 5 rate
-		String gear;
 		
+		//invert contoles on Y
+		Boolean dMode;
+		if(button_toggles[4]){
+			mov_value = -1 * mov_value;
+			dMode = false;
+		}
+		else{
+			dMode = true;
+		}
+    	SmartDashboard.putBoolean("Invert", dMode);
+		
+		//Sqaure values
+		if (mov_value >= 0.0) {
+			mov_value = Math.pow(mov_value,1.5);
+	      } else {
+	    	  mov_value = -(Math.pow(-1 * mov_value,1.5));
+	      }
+	      if (turning_value >= 0.0) {
+	    	  turning_value = Math.pow(turning_value,1.5);
+	      } else {
+	    	  turning_value = -(Math.pow(-1 * turning_value,1.5));
+	      }
+
+	     //hold start to drive foroward
+	     if(begin.stick.getRawButton(8)){
+	    	 turning_value = 0;
+	     }
+	      
+		//shift on B if you are atleast going 35 rate on ecode left and shifts back if your speed dropes back down to 5 rate
 		if(!button_toggles[2]){
 			begin.shift.set(false);
 			begin.drive.arcadeDrive(turning_value,mov_value);
-    		gear = "Low";
 		}
 		else{
 			//testing if meets max low gear eCode rate
 			if(Math.abs(begin.eCodeLeft.getRate()) >= LowGearMax || shifted){
-				shifted = true;
+				//To do ramp
+				if(mov_value > 0.65){
+//					mov_value = speedFromTime(timer, mov_value);
+					begin.rampTimer.start();
+					if(begin.rampTimer.get() < rampTime){
+						mov_value = 0.65 + ((0.35 * begin.rampTimer.get())/rampTime);
+					}
+					else {
+						mov_value = 1;
+					}
+				}
+				else{
+					begin.rampTimer.reset();
+					mov_value = mov_value * 0.65;
+				}
 				begin.shift.set(true);
-				begin.drive.arcadeDrive(turning_value * 0.6, mov_value * 0.6);
-	    		gear = "High";
+				begin.drive.arcadeDrive(turning_value * 0.65, mov_value);
 	    		gear_bool = true;
+				shifted = true;
+				begin.shiftTimer.reset();
 			}
-			else{
+			else if(begin.shiftTimer.get() > 0.25){
+				begin.rampTimer.reset();
 				begin.shift.set(false);
-				begin.drive.arcadeDrive(turning_value,mov_value);
-	    		gear = "Low";
+				begin.drive.arcadeDrive(turning_value,mov_value * lowGearPersential);
 	    		gear_bool = false;
 			}
 			//testing if meets min speed to reset the shifters to closed
@@ -139,25 +189,43 @@ public class TeleOp extends IterativeRobot{
 			}
 			
 		}
-    	SmartDashboard.putString("High Gear Mode", gear);
-    	SmartDashboard.putBoolean("Gear", gear_bool);	
+
+    	SmartDashboard.putBoolean("Gear", gear_bool);
 
 		//if Climber moveing then set break to open if not moveing break locked
 		if(Math.abs(begin.stick.getRawAxis(2) - begin.stick.getRawAxis(3)) > 0.1){
 			begin.Break.set(true);
 			begin.climber.set(begin.stick.getRawAxis(2) - begin.stick.getRawAxis(3));
 		}
+		else if(button_toggles[3]){
+			begin.Break.set(false);
+		}
 		else {
 			begin.Break.set(false);
 			begin.climber.set(0);
 		}
 		
-		System.out.println("Left: " + begin.eCodeLeft.getRate());
-		System.out.println("Right: " + begin.eCodeRight.getRate());
+		System.out.println("Stick Y" + begin.stick.getRawAxis(1));
+//		System.out.println("Left: " + begin.eCodeLeft.getDistance());
+//		System.out.println("Right: " + begin.eCodeRight.getRate());
+//		System.out.println("Gyro: " + begin.gyro.getAngle());
+		
+		System.out.println("Left Rate: " + begin.eCodeLeft.getRate());
 		
 		//seting all previous button states for button togles
 		for(int i = 1; i < 7; i++){
 			previous_button_states[i] = begin.stick.getRawButton(i);
-		}	
+		}
     }
+    
+    
+    
+//    private double speedFromTime(int time, double speed){
+//    	if(time < 50){
+//        	return speed/(time * 2) + 0.65;	
+//    	}
+//    	else {
+//    		return 1;
+//    	}
+//    }
 }

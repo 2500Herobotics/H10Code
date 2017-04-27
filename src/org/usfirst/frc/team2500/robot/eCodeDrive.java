@@ -56,13 +56,30 @@ public class eCodeDrive {
 //		right_drivetrain.enable();
 	}
 	
-//	private double calculateTargetSpeed(Encoder enc, double targetSpeed, double currentSpeed){
-//		//return currentSpeed + ((((targetSpeed * max_speed) - enc.getRate())/max_speed) * k);
-//		return (((targetSpeed * max_speed) - enc.getRate())/max_speed);
-//	}
+	private double calculateTargetSpeed(Encoder enc, double targetSpeed, double currentSpeed){
+		//return currentSpeed + ((((targetSpeed * max_speed) - enc.getRate())/max_speed) * k);
+		return (((targetSpeed * max_speed) - enc.getRate())/max_speed);
+	}
 	
 	public void setMax(int max){
 		max_speed = max;
+	}
+	
+	public boolean driveDistance(double target, double p){
+		eCodeVal = left_enc.getDistance();
+		double error = target - eCodeVal;
+		double speed = error * p;
+		System.out.println("Error: " + error);
+		if(Math.abs(speed) > 1){
+			speed = speed / Math.abs(speed);
+		}
+		left1.set(speed * -1);
+		left2.set(speed * -1);
+		left3.set(speed * -1);
+		right1.set(speed);
+		right2.set(speed);
+		right3.set(speed);
+		return Math.abs(error) < 4;
 	}
 	
 	public boolean driveDistance(double target, double p, double d){
