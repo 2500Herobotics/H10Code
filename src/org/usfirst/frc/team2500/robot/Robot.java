@@ -1,8 +1,11 @@
 package org.usfirst.frc.team2500.robot;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -21,14 +24,8 @@ public class Robot extends IterativeRobot {
     
 //    public PrintWriter writer;
     
-//    public UsbCamera gearCam;
     public UsbCamera Cam0;
     
-    
-	/**
-     * This function is called periodically during test mode
-     */
-
     Command autonomousCommand;
     SendableChooser<Command> autoChooser;
     
@@ -39,10 +36,12 @@ public class Robot extends IterativeRobot {
 
 		//setting Smartdashboard auto buttons
 		autoChooser = new SendableChooser<Command>();
+		
 		autoChooser.addObject("Base Line", new AutoLine());
 		autoChooser.addObject("Left", new AutoLeft());
 		autoChooser.addObject("Mid", new AutoMid());
 		autoChooser.addObject("Right", new AutoRight());
+		
 		SmartDashboard.putData("Auto mode chooser", autoChooser);
 		
 //	    try{
@@ -69,6 +68,7 @@ public class Robot extends IterativeRobot {
     	begin.eCodeRight.reset();
     	begin.gyro.reset();
 	}
+	
 	public void autonomousPeriodic(){
 		//run selected auto 
 		Scheduler.getInstance().run();
@@ -82,7 +82,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic()
 	{
 		teleop.teleopPeriodic();
-//    	writer.println(begin.stick.getRawAxis(0) +"\t" + begin.stick.getRawAxis(1) + "\t" + teleop.mov_value + "\t" + teleop.turning_value + "\t" + begin.eCodeLeft.getRate() + "\t" + begin.eCodeRight.getRate());
+		
 	}
 	
     public void testPeriodic()

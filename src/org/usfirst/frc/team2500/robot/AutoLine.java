@@ -11,9 +11,11 @@ public class AutoLine extends Command {
 	boolean end = false;
 	
 	int timer = 0;
+	
 	/**
      * This function is run once each time the robot enters autonomous mode
      */
+	
 	Begin begin;
 	
     public void initialize() {

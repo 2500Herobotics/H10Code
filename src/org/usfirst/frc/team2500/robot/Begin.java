@@ -26,21 +26,16 @@ public class Begin {
 	eCodeDrive drive;
 	
 	Joystick stick;
-	Joystick stick2;
 	
 	Solenoid jaw;
 	Solenoid shift;
 	Solenoid Break;
-	Solenoid hopper;
+	Solenoid gearRamp;
 	
 	Encoder eCodeLeft;
 	Encoder eCodeRight;
 	
 	ADXRS450_Gyro gyro;
-	
-	public static int autoLoopCounter;
-
-    public double centerX = 0.0;
 	
 	/**
      * This function is run when the robot is first started up and should be
@@ -52,13 +47,12 @@ public class Begin {
     	
     	//Joysticks
     	stick = new Joystick(0);
-    	stick2 = new Joystick(1);
     	
     	//Solenoids
     	jaw = new Solenoid(0);
     	shift = new Solenoid(2);
     	Break = new Solenoid(1);
-    	hopper = new Solenoid(3);
+    	gearRamp = new Solenoid(3);
     	
     	//Encoders
     	eCodeLeft = new Encoder(0, 1, true);
