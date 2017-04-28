@@ -10,10 +10,6 @@ public class TeleOp extends IterativeRobot{
 	Begin begin;
 	eCodeDrive drive;
 	
-	
-	
-//	 PrintWriter writer = new PrintWriter("lastGame.txt","UTF-8");
-	
 	//setting all the button
 	boolean[] previous_button_states;
 	boolean[] button_toggles;
@@ -88,13 +84,18 @@ public class TeleOp extends IterativeRobot{
     	  	button_toggles[i] = !button_toggles[i];
 			}
     	}
-    	
+
+		//seting all previous button states for button togles
+		for(int i = 1; i < 7; i++){
+			previous_button_states[i] = begin.stick.getRawButton(i);
+		}
+		
     	//gear jaw open/close on A toggle
 		begin.jaw.set(button_toggles[1]);
     	SmartDashboard.putBoolean("Jaw ", button_toggles[1]);	
     	
-    	//hopper open/close
-    	begin.hopper.set(button_toggles[5]);
+    	//gearRamp open/close on LB
+    	begin.gearRamp.set(button_toggles[5]);
 		
 		//invert contoles on Y
 		Boolean dMode;
@@ -116,18 +117,20 @@ public class TeleOp extends IterativeRobot{
 		else{
 			//testing if meets max low gear eCode rate
 			if(Math.abs(begin.eCodeLeft.getRate()) >= LowGearMax || shifted){
-				//To do ramp
+				//To do ramp after requested speed is over 65%
 				if(mov_value > 0.65){
-//					mov_value = speedFromTime(timer, mov_value);
 					begin.rampTimer.start();
+					//ramping based on time
 					if(begin.rampTimer.get() < rampTime){
 						mov_value = 0.65 + ((0.35 * begin.rampTimer.get())/rampTime);
 					}
+					//if timer is greater then rampTime auto set move value to 1
 					else {
 						mov_value = 1;
 					}
 				}
 				else{
+					//if requested speed is less then 65% reset the timer to 0
 					begin.rampTimer.reset();
 					mov_value = mov_value * 0.65;
 				}
@@ -163,28 +166,5 @@ public class TeleOp extends IterativeRobot{
 			begin.Break.set(false);
 			begin.climber.set(0);
 		}
-		
-		System.out.println("Stick Y" + begin.stick.getRawAxis(1));
-//		System.out.println("Left: " + begin.eCodeLeft.getDistance());
-//		System.out.println("Right: " + begin.eCodeRight.getRate());
-//		System.out.println("Gyro: " + begin.gyro.getAngle());
-		
-		System.out.println("Left Rate: " + begin.eCodeLeft.getRate());
-		
-		//seting all previous button states for button togles
-		for(int i = 1; i < 7; i++){
-			previous_button_states[i] = begin.stick.getRawButton(i);
-		}
     }
-    
-    
-    
-//    private double speedFromTime(int time, double speed){
-//    	if(time < 50){
-//        	return speed/(time * 2) + 0.65;	
-//    	}
-//    	else {
-//    		return 1;
-//    	}
-//    }
 }
